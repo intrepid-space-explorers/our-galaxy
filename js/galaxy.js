@@ -1,6 +1,8 @@
 'use strict';
 
-var num_stars = 5;
+var milky_way;
+
+var num_stars = 1000;
 var star_array = [];
 var star_types = [
   0, 1, 1, 2, 2, 2, 3, 3, 4, 4,
@@ -106,9 +108,14 @@ console.log(star_array);
 //===============================
 //===============================
 
+// function preload() {
+//   milky_way = loadImage('../img/Milky_Way-view2.jpg');
+// }
 
 function setup() {
   var cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+  // milky_way.width = window.innerWidth;
+  // milky_way.height = window.innerHeight;
   background(0);
 
 }
@@ -122,10 +129,12 @@ function draw() {
   ambientMaterial(250);
   directionalLight(255, 255, 255, 0, 1, -2);
   noStroke();
+
   for (var i in star_array) {
     push();
     translate(star_array[i].x, star_array[i].y, star_array[i].z);
-    sphere(10);
+    // plane(100, 100);
+    sphere(7);
     pop();
   }
 }
@@ -134,16 +143,12 @@ function draw() {
 function randomized_coordinates() {
   var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) - (window.innerWidth / 2) + 10));
   var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) - (window.innerHeight / 2) + 10));
-  var random_z = Math.floor(Math.random() * -500);
+  var random_z = Math.floor(Math.random() * -1000);
 
   var coordinates = [random_x, random_y, random_z];
   return coordinates;
 }
 
-function random_age() {
-  var random_age = Math.floor(Math.random() * 100);
-  return random_age;
-}
 
 //uncomment again when ready to play with the pop-up windows
 
