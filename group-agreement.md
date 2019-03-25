@@ -12,12 +12,15 @@ We will check slack once during the evening, just in case something comes up. Bu
   
 Daily review of progress/issues as a group at end of day.  
   
+We will use snake case for our naming.  
+  
+  
 ### Conflict management:  
   
 Full transparency about potential issues. Discuss it even if it seems silly or small so that things don't turn into unexpectedly big deals.  
   
 If someone needs to step away for *any* reason, all they have to do is say 'albatross' and take a break/step away absolutely no strings attached/no hard feeilngs.  
   
-Jon has mediation/conflict resolution ecperience and has offered to help resolve anything that comes up.  
+Jon has mediation/conflict resolution experience and has offered to help resolve anything that comes up.  
   
 If we truely hit a stand still on what direction to go, we will decide with a game of ping-pong, winner get to decide.  
