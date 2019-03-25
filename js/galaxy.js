@@ -4,9 +4,9 @@ var temp_star = {
   type: 'a star',
   name: 'star 01',
   age: random_age(),
-  x: randomize()[0],
-  y: randomize()[1],
-  z: randomize()[2],
+  x: randomized_coordinates()[0],
+  y: randomized_coordinates()[1],
+  z: randomized_coordinates()[2],
   planets: [],
   // is_clicked: function() {
 
@@ -39,7 +39,7 @@ function draw() {
 }
 
 
-function randomize() {
+function randomized_coordinates() {
   var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) - (window.innerWidth / 2) + 10));
   var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) - (window.innerHeight / 2) + 10));
   var random_z = Math.floor(Math.random() * -500);
@@ -53,9 +53,11 @@ function random_age() {
   return random_age;
 }
 
-function mousePressed() {
-  console.log(mouseX);
-  console.log(mouseY);
-  var new_div = createDiv('Test');
-  new_div.position(mouseX, mouseY);
-}
+//uncomment again when ready to play with the pop-up windows
+
+// function mousePressed() {
+//   console.log(mouseX);
+//   console.log(mouseY);
+//   var new_div = createDiv('Test');
+//   new_div.position(mouseX, mouseY);
+// }
