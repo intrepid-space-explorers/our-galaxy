@@ -10,8 +10,9 @@ If we are working on something (mainly afterhours), we will slack the group so t
   
 We will check slack once during the evening, just in case something comes up. But there is no expectation of being available afterhours.  
   
+Daily review of progress/issues as a group at end of day.  
   
-Conflict management:  
+### Conflict management:  
   
 Full transparency about potential issues. Discuss it even if it seems silly or small so that things don't turn into unexpectedly big deals.  
   
