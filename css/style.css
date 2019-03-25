@@ -1,13 +1,13 @@
 /*------------------ index.html page styling----------------------*/
 body{
-  background-image: 
+  background-image:
 }
 .indexTitle{
   width: 716px;
   height: 80px;
   margin-left: 30%;
   margin-top: 1%;
-  background-color: rebeccapurple;
+  /* background-color: rebeccapurple; */
 }
 .indexTitle > h1{
   font-size: 38px;
@@ -17,7 +17,7 @@ body{
 .indexTitle > p{
   font-size: 18px;
   margin-top: 6px;
-  margin-left: 20%;
+  margin-left: 23%;
   font-family: 'Slabo 27px', serif;
   opacity: 0.8
 }
@@ -26,18 +26,19 @@ body{
   width: 80%;
   height: 100%;
   margin-top: 2%;
-  margin-left: 4%;
+  margin-left: 8%;
   margin-bottom: 2%;
-  background-color: aqua;
+  /* background-color: aqua; */
   font-size: 20px;
 }
 
 .indexRules{
-  width: 35%;
+  width: 70%;
   height: 200px;
-  background-color: cornflowerblue;
+  /* background-color: cornflowerblue; */
   font-size: 20px;
-  margin-left: 4%;
+  margin-left: 8%;
+  margin-top: 4%;
 }
 .indexRules > h2{
   font-weight: bold;
@@ -45,4 +46,32 @@ body{
 .indexRules > ul{
   margin-top: 2%;
   margin-left: 20px;
+}
+.indexRules > ul > li{
+  margin-bottom: 10px;
+}
+
+.star_input_data_box{
+  width: 370px;
+  height: 180px;
+  /* background-color: deeppink; */
+  margin-left: 33%;
+}
+.star_input_element{
+  float: right;
+  margin-bottom: 20px;
+}
+.submit_button{
+  width: 158px;
+  margin-top: 40px;
+  margin-right: -290px;
+}
+
+footer{
+  margin-left: 90%;
+}
+.author_button{
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
 }

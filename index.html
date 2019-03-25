@@ -18,63 +18,57 @@
 
     <div class="indexTitle">
       <h1>Welcome aboard our wonderful spaceship!</h1>
-      <p>Here you will be able to search the cosmos for</p>
+      <p>Here you will be able to search the cosmos</p>
     </div>
 
     <div class="indexInstructions">
       <p>
-        &nbsp;&nbsp; Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        &nbsp;&nbsp; The <u>Drake equation</u> is a probabilistic argument used to estimate the number of active,
+        communicative extraterrestrial civilizations in the Milky Way galaxy. Or more simply put, the odds of finding intelligent life in the universe.
+        This experience is designed to educate and visualize this principle in a interactive and exiting way
        </p>
     </div>
 
     <div class="indexRules">
-      <h2>How to use</h2>
+      <h2>Instructions</h2>
       <ul>
-        <li>Rule 1.</li>
-        <li>Rule 2.</li>
-        <li>Rule 3.</li>
-        <li>Rule 4.</li>
+        <li>1.Enter how many stars you would like to see displayed</li>
+        <li>2.Enter the percentage change of life and percentage chance of inteligent life</li>
+        <li>3.Press the button to explore the universe</li>
       </ul>
     </div>
 
     <section>
 
-        <form id= "star_data_form">
+        <form id= "star_data_form" class="star_input_data_box">
 
-          <div class="number_of_stars">
+          <div class="star_input_element number_of_stars">
             <label for="#of_stars"> # Of Stars
                 <input id="#of_stars" type="text">
             </label>
           </div>
 
 
-          <div class="perent_life_possible">
+          <div class="star_input_element perent_life_possible">
             <label for="%of_pos_life_on_planet"> % Of Possible Life on Planet
               <input id="%of_pos_life_on_planet" type="text">
             </label>
           </div>
 
-          <div class="perent_inteligent_life_possible">
+          <div class="star_input_element perent_inteligent_life_possible">
             <label for="%of_intelegent_life"> % Of Intelegent life
               <input id="%of_intelegent_life" type="text">
             </label>
           </div>
 
-              <button src="./pages/galaxy.html">Explore!!! </button>
+              <button class="star_input_element submit_button" src="./pages/galaxy.html">Explore!!! </button>
         </form>
 
     </section>
 
 
     <footer>
-        <ul>
-            <li> <button src="./pages/authors.html">Authors </button></li>
-
-        </ul>
+      <button class="author_button" src="./pages/authors.html">Authors </button></li>
     </footer>
     <script src="./js/app.js"></script>
 </body>
