@@ -1,0 +1,48 @@
+/*------------------ index.html page styling----------------------*/
+body{
+  background-image: 
+}
+.indexTitle{
+  width: 716px;
+  height: 80px;
+  margin-left: 30%;
+  margin-top: 1%;
+  background-color: rebeccapurple;
+}
+.indexTitle > h1{
+  font-size: 38px;
+  font-weight: bold;
+  font-family: 'Slabo 27px', serif;
+}
+.indexTitle > p{
+  font-size: 18px;
+  margin-top: 6px;
+  margin-left: 20%;
+  font-family: 'Slabo 27px', serif;
+  opacity: 0.8
+}
+
+.indexInstructions > p{
+  width: 80%;
+  height: 100%;
+  margin-top: 2%;
+  margin-left: 4%;
+  margin-bottom: 2%;
+  background-color: aqua;
+  font-size: 20px;
+}
+
+.indexRules{
+  width: 35%;
+  height: 200px;
+  background-color: cornflowerblue;
+  font-size: 20px;
+  margin-left: 4%;
+}
+.indexRules > h2{
+  font-weight: bold;
+}
+.indexRules > ul{
+  margin-top: 2%;
+  margin-left: 20px;
+}
