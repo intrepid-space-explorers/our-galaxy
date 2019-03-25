@@ -7,7 +7,10 @@ var temp_star = {
   x: randomize()[0],
   y: randomize()[1],
   z: randomize()[2],
-  planets: []
+  planets: [],
+  // is_clicked: function() {
+
+  // }
 };
 var star_array = [temp_star];
 
@@ -33,7 +36,6 @@ function draw() {
     sphere(10);
     pop();
   }
-
 }
 
 
@@ -49,4 +51,11 @@ function randomize() {
 function random_age() {
   var random_age = Math.floor(Math.random() * 100);
   return random_age;
+}
+
+function mousePressed() {
+  console.log(mouseX);
+  console.log(mouseY);
+  var new_div = createDiv('Test');
+  new_div.position(mouseX, mouseY);
 }

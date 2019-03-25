@@ -4,3 +4,10 @@
     padding: 0;
     overflow: hidden;
 }
+
+div {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-color: antiquewhite;
+}
