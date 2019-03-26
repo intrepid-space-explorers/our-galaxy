@@ -1,3 +1,4 @@
+
 'use strict';
 var data_window_open = false;
 
@@ -153,14 +154,6 @@ for (var i = 0; i < num_stars; i++) {
 
 console.log(star_array);
 
-// function handle_click_on_item1(event){
-//     console.log('clicked on #1: ' + item1);
-//     console.log('clicked on item: ' + market_items[item1].name);
-//     like_counter++;
-//     market_items[item1].clicks++;
-//     more_items();
-// localStorage.setItem('market_items_array_in_ls', stringy_object);
-// localStorage.setItem('clicked_list_in_ls', clicked_list);
 
 //===============================
 // p5 Canvas
@@ -182,15 +175,6 @@ function setup() {
   var cnv = createCanvas(windowWidth, windowHeight);
   background(0);
 
-  // push();
-  // texture(background_img);
-  // textureMode(NORMAL);
-  // translate(0, 0, -1100);
-  // plane(5000);
-  // pop();
-
-  // ambientMaterial(250);
-  // directionalLight(255, 255, 255, 0, 1, -2);
   noStroke();
 
   for (var i in star_array) {
@@ -200,7 +184,7 @@ function setup() {
     // texture(images[star_array[i].image_url]);
     // textureMode(NORMAL);
     // plane(30);
-    // sphere(7);
+
   }
 
 }
@@ -210,9 +194,6 @@ function windowResized() {
   setup();
 }
 
-function draw() {
-
-}
 
 function mousePressed() {
   for (var i in star_array) {
