@@ -1,4 +1,5 @@
 'use strict';
+var data_window_open = false;
 
 var stringy_number_of_stars = localStorage.getItem('number_of_stars');
 var stringy_percent_of_life = localStorage.getItem('%of_pos_life_on_planet');
@@ -51,16 +52,20 @@ function Build_star() {
 
 Build_star.prototype.if_clicked = function() {
   var click_difference = dist(this.x, this.y, mouseX, mouseY);
-  if (click_difference <= (this.z / 2)) {
-    console.log(this);
-    var new_div = createDiv('<button id="close_button">Close</button>');
-    new_div.position(mouseX, mouseY);
-    var close = document.getElementById('close_button');
-    close.addEventListener('click', close_div);
+  if (!data_window_open) {
+    if (click_difference <= (this.z / 2)) {
+      console.log(this);
+      var new_div = createDiv('<button id="close_button">Close</button>');
+      new_div.position(mouseX, mouseY);
+      data_window_open = true;
+      var close = document.getElementById('close_button');
+      close.addEventListener('click', close_div);
+    }
   }
 
   function close_div() {
     removeElements();
+    data_window_open = false;
   }
 };
 
