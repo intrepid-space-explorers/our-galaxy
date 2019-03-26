@@ -8,10 +8,10 @@ function submit_handler(event){
   // event.preventDefault();
   var number_of_stars = Math.floor(document.getElementById('number_of_stars').value);
   var percent_of_possible_life = (document.getElementById('%of_pos_life_on_planet').value) / 100;
-  var percent_of_inteligent_life = (document.getElementById('%of_intelegent_life').value) / 100;
+  var percent_of_intelligent_life = (document.getElementById('%of_intelligent_life').value) / 100;
 
 
   localStorage.setItem('number_of_stars', number_of_stars);
   localStorage.setItem('%of_pos_life_on_planet', percent_of_possible_life);
-  localStorage.setItem('%of_intelegent_life', percent_of_inteligent_life);
+  localStorage.setItem('%of_intelligent_life', percent_of_intelligent_life);
 }
