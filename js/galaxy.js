@@ -1,8 +1,10 @@
 'use strict';
 
-var milky_way;
+var stringy_number_of_stars = localStorage.getItem('number_of_stars');
+var stringy_percent_of_life = localStorage.getItem('%of_pos_life_on_planet');
+var stringy_percent_of_inteligent_life = localStorage.getItem('%of_intelegent_life');
 
-var num_stars = 1000;
+var num_stars = JSON.parse(stringy_number_of_stars);
 var star_array = [];
 var star_types = [
   0, 1, 1, 2, 2, 2, 3, 3, 4, 4,
@@ -51,8 +53,8 @@ function Build_planet(index) {
   star_array[index].planets.push(this);
 }
 
-var life_drake = .75;
-var intel_drake = .75;
+var life_drake = JSON.parse(stringy_percent_of_life);
+var intel_drake = JSON.parse(stringy_percent_of_inteligent_life);
 // get num_stars from local storage
 // get life_drake from local storage
 // get intel_drake from local storage
