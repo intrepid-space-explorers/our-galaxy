@@ -110,6 +110,7 @@ console.log(star_array);
 // p5 Canvas
 //===============================
 var img;
+var background_img;
 var images = [];
 
 function preload() {
@@ -117,15 +118,26 @@ function preload() {
     img = loadImage(star_data_image_url[i]);
     images.push(img);
   }
+  background_img = loadImage('../assets/star_pictures/Milky_Way-view3.jpg');
+
 }
 
 function setup() {
   var cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+  console.log(background_img);
   background(0);
+
+  push();
+  texture(background_img);
+  textureMode(NORMAL);
+  translate(0, 0, -1100);
+  plane(5000);
+  pop();
+
   ambientMaterial(250);
   directionalLight(255, 255, 255, 0, 1, -2);
   noStroke();
-  console.log(images);
+
   for (var i in star_array) {
     push();
     translate(star_array[i].x, star_array[i].y, star_array[i].z);
