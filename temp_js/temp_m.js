@@ -46,6 +46,7 @@ var planet_data_chance_life = [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0];
 // ================================================
 
 function Build_star() {
+  this.has_planets = false;
   this.planets = [],
   star_array.push(this);
 }
@@ -55,7 +56,7 @@ Build_star.prototype.if_clicked = function() {
   if (!data_window_open) {
     if (click_difference <= (this.z / 2)) {
       console.log(this);
-      var new_div = createDiv('<button id="close_button">Close</button>');
+      var new_div = createDiv('');
       new_div.attribute('id', 'data_div');
       new_div.position(mouseX, mouseY);
       this.populate_with_data();
@@ -91,14 +92,15 @@ Build_star.prototype.populate_with_data = function() {
   data_list.appendChild(age);
 
   var planets = document.createElement('li');
-  planets.textContent = `Plantes: ${this.has_planets}`;
+  planets.textContent = `Planets: ${this.has_planets}`;
   data_list.appendChild(planets);
 
   data_div.appendChild(data_list);
-  // var button = document.createElement('button');
-  // button.setAttribute('id', 'close_button');
-  // button.textContent('Close');
-  // data_div.appendChild(button);
+
+  var button = document.createElement('button');
+  button.setAttribute('id', 'close_button');
+  button.textContent = 'Close';
+  data_div.appendChild(button);
 };
 
 function Build_planet(index) {

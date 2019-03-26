@@ -8,9 +8,26 @@
 div {
     position: absolute;
     background-color: grey;
+    /* width: 500px; */
 }
 
 div img {
     background-color: black;
+    margin: 5px;
+}
+
+ul {
+    margin: 10px;
+    width: fit-content;
+    display: inline-block;
+    vertical-align: top;
+}
+
+li {
+    margin-bottom: 2px;
+}
+
+button {
+    width: fit-content;
     margin: 5px;
 }
