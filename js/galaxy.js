@@ -49,6 +49,13 @@ function Build_star() {
   star_array.push(this);
 }
 
+Build_star.prototype.if_clicked = function() {
+  var click_difference = dist(this.x, this.y, mouseX, mouseY);
+  if (click_difference <= (this.z / 2)) {
+    console.log(this);
+  }
+};
+
 function Build_planet(index) {
   star_array[index].planets.push(this);
 }
@@ -124,28 +131,28 @@ function preload() {
 }
 
 function setup() {
-  var cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+  var cnv = createCanvas(windowWidth, windowHeight);
   background(0);
 
-  push();
-  texture(background_img);
-  textureMode(NORMAL);
-  translate(0, 0, -1100);
-  plane(5000);
-  pop();
+  // push();
+  // texture(background_img);
+  // textureMode(NORMAL);
+  // translate(0, 0, -1100);
+  // plane(5000);
+  // pop();
 
-  ambientMaterial(250);
-  directionalLight(255, 255, 255, 0, 1, -2);
+  // ambientMaterial(250);
+  // directionalLight(255, 255, 255, 0, 1, -2);
   noStroke();
 
   for (var i in star_array) {
-    push();
-    translate(star_array[i].x, star_array[i].y, star_array[i].z);
-    texture(images[star_array[i].image_url]);
-    textureMode(NORMAL);
-    plane(30);
-    sphere(7);
-    pop();
+
+    fill(255);
+    ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
+    // texture(images[star_array[i].image_url]);
+    // textureMode(NORMAL);
+    // plane(30);
+    // sphere(7);
   }
 
 }
@@ -159,23 +166,17 @@ function draw() {
 
 }
 
+function mousePressed() {
+  for (var i in star_array) {
+    star_array[i].if_clicked();
+  }
+}
 
 function randomized_coordinates() {
-  var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) - (window.innerWidth / 2) + 10));
-  var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) - (window.innerHeight / 2) + 10));
+  var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) + 10));
+  var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) + 10));
   var random_psuedo_z = Math.floor(Math.random() * 7) + 3;
 
   var coordinates = [random_x, random_y, random_psuedo_z];
   return coordinates;
 }
-
-
-
-//uncomment again when ready to play with the pop-up windows
-
-// function mousePressed() {
-//   console.log(mouseX);
-//   console.log(mouseY);
-//   var new_div = createDiv('Test');
-//   new_div.position(mouseX, mouseY);
-// }

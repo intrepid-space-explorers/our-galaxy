@@ -1,6 +1,10 @@
 'use strict';
 
-var num_stars = 500;
+var stringy_number_of_stars = localStorage.getItem('number_of_stars');
+var stringy_percent_of_life = localStorage.getItem('%of_pos_life_on_planet');
+var stringy_percent_of_inteligent_life = localStorage.getItem('%of_intelegent_life');
+
+var num_stars = JSON.parse(stringy_number_of_stars);
 var star_array = [];
 var star_types = [
   0, 1, 1, 2, 2, 2, 3, 3, 4, 4,
@@ -45,12 +49,19 @@ function Build_star() {
   star_array.push(this);
 }
 
+Build_star.prototype.if_clicked = function() {
+  var click_difference = dist(this.x, this.y, mouseX, mouseY);
+  if (click_difference <= (this.z / 2)) {
+    console.log(this);
+  }
+};
+
 function Build_planet(index) {
   star_array[index].planets.push(this);
 }
 
-var life_drake = .75;
-var intel_drake = .75;
+var life_drake = JSON.parse(stringy_percent_of_life);
+var intel_drake = JSON.parse(stringy_percent_of_inteligent_life);
 // get num_stars from local storage
 // get life_drake from local storage
 // get intel_drake from local storage
@@ -103,7 +114,6 @@ console.log(star_array);
 // localStorage.setItem('market_items_array_in_ls', stringy_object);
 // localStorage.setItem('clicked_list_in_ls', clicked_list);
 
-
 //===============================
 // p5 Canvas
 //===============================
@@ -121,28 +131,28 @@ function preload() {
 }
 
 function setup() {
-  var cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+  var cnv = createCanvas(windowWidth, windowHeight);
   background(0);
 
-  push();
-  texture(background_img);
-  textureMode(NORMAL);
-  translate(0, 0, -1100);
-  plane(5000);
-  pop();
+  // push();
+  // texture(background_img);
+  // textureMode(NORMAL);
+  // translate(0, 0, -1100);
+  // plane(5000);
+  // pop();
 
-  ambientMaterial(250);
-  directionalLight(255, 255, 255, 0, 1, -2);
+  // ambientMaterial(250);
+  // directionalLight(255, 255, 255, 0, 1, -2);
   noStroke();
 
   for (var i in star_array) {
-    push();
-    translate(star_array[i].x, star_array[i].y, star_array[i].z);
-    texture(images[star_array[i].image_url]);
-    textureMode(NORMAL);
-    plane(30);
-    sphere(7);
-    pop();
+
+    fill(255);
+    ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
+    // texture(images[star_array[i].image_url]);
+    // textureMode(NORMAL);
+    // plane(30);
+    // sphere(7);
   }
 
 }
@@ -156,10 +166,15 @@ function draw() {
 
 }
 
+function mousePressed() {
+  for (var i in star_array) {
+    star_array[i].if_clicked();
+  }
+}
 
 function randomized_coordinates() {
-  var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) - (window.innerWidth / 2) + 10));
-  var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) - (window.innerHeight / 2) + 10));
+  var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) + 10));
+  var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) + 10));
   var random_psuedo_z = Math.floor(Math.random() * 7) + 3;
 
   var coordinates = [random_x, random_y, random_psuedo_z];
