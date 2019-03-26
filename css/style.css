@@ -1,6 +1,6 @@
 /*------------------ index.html page styling----------------------*/
 body{
-  background-image:
+  color: azure;
 }
 .indexTitle{
   width: 716px;
@@ -28,14 +28,12 @@ body{
   margin-top: 2%;
   margin-left: 8%;
   margin-bottom: 2%;
-  /* background-color: aqua; */
   font-size: 20px;
 }
 
 .indexRules{
   width: 70%;
   height: 200px;
-  /* background-color: cornflowerblue; */
   font-size: 20px;
   margin-left: 8%;
   margin-top: 4%;
@@ -54,7 +52,6 @@ body{
 .star_input_data_box{
   width: 370px;
   height: 180px;
-  /* background-color: deeppink; */
   margin-left: 33%;
 }
 .star_input_element{
