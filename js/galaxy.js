@@ -1,8 +1,10 @@
 'use strict';
 
+var data_window_open = false;
+
 var stringy_number_of_stars = localStorage.getItem('number_of_stars');
 var stringy_percent_of_life = localStorage.getItem('%of_pos_life_on_planet');
-var stringy_percent_of_inteligent_life = localStorage.getItem('%of_intelegent_life');
+var stringy_percent_of_intelligent_life = localStorage.getItem('%of_intelligent_life');
 
 var num_stars = JSON.parse(stringy_number_of_stars);
 var star_array = [];
@@ -45,17 +47,61 @@ var planet_data_chance_life = [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1];
 // ================================================
 
 function Build_star() {
+  this.has_planets = false;
   this.planets = [],
   star_array.push(this);
 }
 
 Build_star.prototype.if_clicked = function() {
   var click_difference = dist(this.x, this.y, mouseX, mouseY);
-  if (click_difference <= (this.z / 2)) {
-    console.log(this);
-    var new_div = createDiv('Test');
-    new_div.position(mouseX, mouseY);
+  if (!data_window_open) {
+    if (click_difference <= (this.z / 2)) {
+      console.log(this);
+      var new_div = createDiv('');
+      new_div.attribute('id', 'data_div');
+      new_div.position(mouseX, mouseY);
+      this.populate_with_data();
+      data_window_open = true;
+      var close = document.getElementById('close_button');
+      close.addEventListener('click', close_div);
+    }
   }
+
+  function close_div() {
+    removeElements();
+    data_window_open = false;
+  }
+};
+
+
+Build_star.prototype.populate_with_data = function() {
+  var data_div = document.getElementById('data_div');
+
+  var image = document.createElement('img');
+  image.setAttribute('src', star_data_image_url[this.image_url]);
+  data_div.appendChild(image);
+
+  var data_list = document.createElement('ul');
+
+  var name = document.createElement('li');
+  // console.log(data);
+  name.textContent = `Type: ${this.name}`;
+  data_list.appendChild(name);
+
+  var age = document.createElement('li');
+  age.textContent = `Age: ${this.age} billion years old.`;
+  data_list.appendChild(age);
+
+  var planets = document.createElement('li');
+  planets.textContent = `Planets: ${this.has_planets}`;
+  data_list.appendChild(planets);
+
+  data_div.appendChild(data_list);
+
+  var button = document.createElement('button');
+  button.setAttribute('id', 'close_button');
+  button.textContent = 'Close';
+  data_div.appendChild(button);
 };
 
 function Build_planet(index) {
@@ -73,13 +119,13 @@ var intel_drake = JSON.parse(stringy_percent_of_intelligent_life);
 // populate star_Array objects
 
 for (var i = 0; i < num_stars; i++) {
-  // 14 types of stars in database, pick random number 0 to 99, set s-type to star of that number 
+  // 14 types of stars in database, pick random number 0 to 99, set s-type to star of that number
   var chance = Math.floor(Math.random() * 99);
   var chance2 = Math.floor(Math.random() * 99); // easter egg time, add dyson sphere
   if (chance === 99 && chance2 === 99) {
     s_type = 100;
   }
-  var s_type = star_types[chance]; 
+  var s_type = star_types[chance];
   new Build_star();
   star_array[i].image_url = s_type;
   star_array[i].type = s_type;
@@ -88,14 +134,16 @@ for (var i = 0; i < num_stars; i++) {
   star_array[i].x = randomized_coordinates()[0];
   star_array[i].y = randomized_coordinates()[1];
   star_array[i].z = randomized_coordinates()[2];
+
   var chance = Math.random();
   if (chance < star_data_chance_planets[s_type]) {
+    star_array[i].has_planets = true;
     // number of possible planets in solar system is 10
-    var num_planets = Math.floor(Math.random() * 9) + 1;  
+    var num_planets = Math.floor(Math.random() * 9) + 1;
     for (var j = 0; j < num_planets; j++) {
       // 12 types of planets in database, random pick of 0 to 99, set p-type to planet of that number
       var chance = Math.floor(Math.random() * 99);
-      var p_type = planet_types[chance]; 
+      var p_type = planet_types[chance];
       new Build_planet(i);
       star_array[i].planets[j].image_url = planet_data_image_url[p_type];
       star_array[i].planets[j].type = p_type;
@@ -108,7 +156,7 @@ for (var i = 0; i < num_stars; i++) {
       var chance_of_intel = Math.random() / intel_drake;
       if (star_array[i].age > 4) {
         if (chance_of_intel > 1) {
-          star_array[i].intel = 1; 
+          star_array[i].intel = 1;
         }
       } //  dyson sphere logic
       if (star_array[i].type === 100) {
