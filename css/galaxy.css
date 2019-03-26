@@ -7,4 +7,10 @@
 
 div {
     position: absolute;
+    background-color: grey;
+}
+
+div img {
+    background-color: black;
+    margin: 5px;
 }

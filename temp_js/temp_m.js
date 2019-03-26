@@ -56,7 +56,9 @@ Build_star.prototype.if_clicked = function() {
     if (click_difference <= (this.z / 2)) {
       console.log(this);
       var new_div = createDiv('<button id="close_button">Close</button>');
+      new_div.attribute('id', 'data_div');
       new_div.position(mouseX, mouseY);
+      this.populate_with_data();
       data_window_open = true;
       var close = document.getElementById('close_button');
       close.addEventListener('click', close_div);
@@ -67,6 +69,36 @@ Build_star.prototype.if_clicked = function() {
     removeElements();
     data_window_open = false;
   }
+};
+
+
+Build_star.prototype.populate_with_data = function() {
+  var data_div = document.getElementById('data_div');
+
+  var image = document.createElement('img');
+  image.setAttribute('src', star_data_image_url[this.image_url]);
+  data_div.appendChild(image);
+
+  var data_list = document.createElement('ul');
+
+  var name = document.createElement('li');
+  // console.log(data);
+  name.textContent = `Type: ${this.name}`;
+  data_list.appendChild(name);
+
+  var age = document.createElement('li');
+  age.textContent = `Age: ${this.age} billion years old.`;
+  data_list.appendChild(age);
+
+  var planets = document.createElement('li');
+  planets.textContent = `Plantes: ${this.has_planets}`;
+  data_list.appendChild(planets);
+
+  data_div.appendChild(data_list);
+  // var button = document.createElement('button');
+  // button.setAttribute('id', 'close_button');
+  // button.textContent('Close');
+  // data_div.appendChild(button);
 };
 
 function Build_planet(index) {
@@ -94,6 +126,7 @@ for (var i = 0; i < num_stars; i++) {
 
   var chance = Math.random();
   if (chance < star_data_chance_planets[s_type]) {
+    star_array[i].has_planets = true;
     var num_planets = Math.floor(Math.random() * 10);
     for (var j = 0; j < num_planets; j++) {
       var p_type = Math.floor(Math.random() * 12);
