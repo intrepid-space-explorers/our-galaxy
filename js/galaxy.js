@@ -53,6 +53,8 @@ Build_star.prototype.if_clicked = function() {
   var click_difference = dist(this.x, this.y, mouseX, mouseY);
   if (click_difference <= (this.z / 2)) {
     console.log(this);
+    var new_div = createDiv('Test');
+    new_div.position(mouseX, mouseY);
   }
 };
 
