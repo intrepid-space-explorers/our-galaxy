@@ -87,6 +87,7 @@ body{
 }
 .submit_button{
   width: 93px;
+  border-radius: 10px;
 }
 
 footer{
