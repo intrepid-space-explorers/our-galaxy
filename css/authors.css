@@ -9,19 +9,20 @@ font-size: 38px;
 width: 716px;
 margin-left: 40%;
 }
-
-li{
-    float: left;
-    padding: 25.8px;
-    margin-left: 30%;
-    margin-top: 30%;
-    font-size: 28px;
+    
+ul{
+    display: inline-block;
+    float: none;
+    margin: 20%;
+    padding: 3px;
+    border: 1px solid white;
+    margin-right: 5px;
 }
-.morgana > li{
-    margin-left: 25%;
-}
+ 
 
 footer{
+    display: inline-flex;
+    height: 2;
     margin-left: 90%;
     float: right;
   }
@@ -31,5 +32,7 @@ footer{
     height: 30px;
     margin-bottom: 20%;;
     border-radius: 10px;
-    float: left;
+    float: right;
+    display: block;
+    color: gray;
   }
