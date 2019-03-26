@@ -1,4 +1,32 @@
-div.title{
+body{
+    color: azure;
+  }
 
+
+div.title{
+line-height: 3.2;
+font-size: 38px;
+width: 716px;
+margin-left: 30%;
 }
 
+li{
+    float: left;
+    padding: 25.8px;
+    margin-left: 30%;
+    margin-top: 30%;
+    font-size: 28px;
+}
+
+footer{
+    margin-left: 90%;
+    float: right;
+  }
+
+.index_button{
+    width: 100px;
+    height: 30px;
+    margin-bottom: 20%;;
+    border-radius: 10px;
+    float: left;
+  }
