@@ -36,9 +36,9 @@ var star_data_name = ['Black Hole', 'Neutron Star', 'White Dwarf', 'Supernova-I'
 var star_data_minage = [.1, 5, 7, .1, .1, .1, 2, 3, 4, 2, 2, 2, .1];
 var star_data_maxage = [13, 12, 13, .1, .1, .1, 6, 7, 8, 8, 10, 12, .5];
 var star_data_chance_planets = [0, .01, .05, 0, 0, .4, .9, .9, .9, .9, .9, .9, .05];
-var planet_data_image_url = ['', '', '', '', '', '', '', '', '', '', '', ''];
-var planet_data_name = ['Hot Giant', 'Rocky Dwarf', 'Hot Rock', 'Sub Terra', 'Terra', 'Super Terra', 'Water World', 'Gas Giant Moon', 'Gas Giant', 'Super Jovian', 'Ice Giant', 'Ice Dwarf'];
-var planet_data_chance_life = [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0];
+var planet_data_image_url = ['../assets/star_pictures/p0_hot_giant.jpg', '../assets/star_pictures/p1_rocky_dwarf.jpg', '../assets/star_pictures/p2_hot_rocky.jpg', '../assets/star_pictures/p3_sub_terra.jpg', '../assets/star_pictures/p4_terra.jpg', '../assets/star_pictures/p5_super_terra.jpg', '../assets/star_pictures/p6_water_world.jpg', '../assets/star_pictures/p7_gas_giant_moon.jpg', '../assets/star_pictures/p8_gas_giant.jpg', '../assets/star_pictures/p9_super_jovian.jpg', '../assets/star_pictures/p10_ice_giant.jpg', '../assets/star_pictures/p11_ice_dwarf', '../assets/star_pictures/p12_dyson_sphere.jpg'];
+var planet_data_name = ['Hot Giant', 'Rocky Dwarf', 'Hot Rock', 'Sub Terra', 'Terra', 'Super Terra', 'Water World', 'Gas Giant Moon', 'Gas Giant', 'Super Jovian', 'Ice Giant', 'Ice Dwarf', 'Dyson Sphere'];
+var planet_data_chance_life = [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1];
 
 // ================================================
 // Constructor
@@ -61,15 +61,23 @@ function Build_planet(index) {
 }
 
 var life_drake = JSON.parse(stringy_percent_of_life);
-var intel_drake = JSON.parse(stringy_percent_of_inteligent_life);
-// get num_stars from local storage
-// get life_drake from local storage
-// get intel_drake from local storage
+var intel_drake = JSON.parse(stringy_percent_of_intelligent_life);
+
+// test set of input variables
+// num_stars = 500;
+// life_drake = .75;
+// intel_drake = .75;
 
 // populate star_Array objects
 
 for (var i = 0; i < num_stars; i++) {
-  var s_type = Math.floor(Math.random() * 13);
+  // 14 types of stars in database, pick random number 0 to 99, set s-type to star of that number 
+  var chance = Math.floor(Math.random() * 99);
+  var chance2 = Math.floor(Math.random() * 99); // easter egg time, add dyson sphere
+  if (chance === 99 && chance2 === 99) {
+    s_type = 100;
+  }
+  var s_type = star_types[chance]; 
   new Build_star();
   star_array[i].image_url = s_type;
   star_array[i].type = s_type;
@@ -78,13 +86,15 @@ for (var i = 0; i < num_stars; i++) {
   star_array[i].x = randomized_coordinates()[0];
   star_array[i].y = randomized_coordinates()[1];
   star_array[i].z = randomized_coordinates()[2];
-
   var chance = Math.random();
   if (chance < star_data_chance_planets[s_type]) {
-    var num_planets = Math.floor(Math.random() * 10);
+    // number of possible planets in solar system is 10
+    var num_planets = Math.floor(Math.random() * 9) + 1;  
     for (var j = 0; j < num_planets; j++) {
-      var p_type = Math.floor(Math.random() * 12);
-      new Build_planet(i); // image_url, type, name
+      // 12 types of planets in database, random pick of 0 to 99, set p-type to planet of that number
+      var chance = Math.floor(Math.random() * 99);
+      var p_type = planet_types[chance]; 
+      new Build_planet(i);
       star_array[i].planets[j].image_url = planet_data_image_url[p_type];
       star_array[i].planets[j].type = p_type;
       star_array[i].planets[j].name = planet_data_name[p_type];
@@ -96,23 +106,23 @@ for (var i = 0; i < num_stars; i++) {
       var chance_of_intel = Math.random() / intel_drake;
       if (star_array[i].age > 4) {
         if (chance_of_intel > 1) {
-          star_array[i].intel = 1;
+          star_array[i].intel = 1; 
         }
+      } //  dyson sphere logic
+      if (star_array[i].type === 100) {
+        star_array[i].planets[j].image_url = planet_data_image_url[12];
+        star_array[i].planets[j].type = 12;
+        star_array[i].planets[j].name = planet_data_name[12];
+        star_array[i].planets[j].age = star_array[i].age;
+        star_array[i].life = 1;
+        star_array[i].intel = 1;
+        j = num_planets;
       }
     }
   }
 }
 
 console.log(star_array);
-
-// function handle_click_on_item1(event){
-//     console.log('clicked on #1: ' + item1);
-//     console.log('clicked on item: ' + market_items[item1].name);
-//     like_counter++;
-//     market_items[item1].clicks++;
-//     more_items();
-// localStorage.setItem('market_items_array_in_ls', stringy_object);
-// localStorage.setItem('clicked_list_in_ls', clicked_list);
 
 //===============================
 // p5 Canvas
