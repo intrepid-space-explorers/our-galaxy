@@ -58,10 +58,13 @@ body{
   float: right;
   margin-bottom: 20px;
 }
+.number_of_stars > label > input{
+  width: 64px;
+}
 .submit_button{
-  width: 158px;
+  width: 199px;
   margin-top: 40px;
-  margin-right: -290px;
+  margin-right: -199px;
 }
 
 footer{
