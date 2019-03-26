@@ -7,7 +7,7 @@ div.title{
 line-height: 3.2;
 font-size: 38px;
 width: 716px;
-margin-left: 30%;
+margin-left: 40%;
 }
 
 li{
@@ -16,6 +16,9 @@ li{
     margin-left: 30%;
     margin-top: 30%;
     font-size: 28px;
+}
+.morgana > li{
+    margin-left: 25%;
 }
 
 footer{
