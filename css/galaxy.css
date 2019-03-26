@@ -6,8 +6,28 @@
 }
 
 div {
-    width: 100px;
-    height: 100px;
     position: absolute;
-    background-color: antiquewhite;
+    background-color: grey;
+    /* width: 500px; */
+}
+
+div img {
+    background-color: black;
+    margin: 5px;
+}
+
+ul {
+    margin: 10px;
+    width: fit-content;
+    display: inline-block;
+    vertical-align: top;
+}
+
+li {
+    margin-bottom: 2px;
+}
+
+button {
+    width: fit-content;
+    margin: 5px;
 }
