@@ -36,7 +36,7 @@ var star_data_name = ['Black Hole', 'Neutron Star', 'White Dwarf', 'Supernova-I'
 var star_data_minage = [.1, 5, 7, .1, .1, .1, 2, 3, 4, 2, 2, 2, .1];
 var star_data_maxage = [13, 12, 13, .1, .1, .1, 6, 7, 8, 8, 10, 12, .5];
 var star_data_chance_planets = [0, .01, .05, 0, 0, .4, .9, .9, .9, .9, .9, .9, .05];
-var planet_data_image_url = ['', '', '', '', '', '', '', '', '', '', '', ''];
+var planet_data_image_url = ['../assets/star_pictures/p0_hot_giant.jpg', '../assets/star_pictures/p1_ricky_dwarf.jpg', '../assets/star_pictures/p2_hot_rocky.jpg', '../assets/star_pictures/p3_sub_terra.jpg', '../assets/star_pictures/p4_terra.jpg', '../assets/star_pictures/p5_super_terra.jpg', '../assets/star_pictures/p6_water_word.jpg', '../assets/star_pictures/p7_gas_giant_moon.jpg', 'p8_gas_giant.jpg', '../assets/star_pictures/p9_super_jovian.jpg', '../assets/star_pictures/p10_ice_giant.jpg', '../assets/star_pictures/p11_ice_dwarf.jpg'];
 var planet_data_name = ['Hot Giant', 'Rocky Dwarf', 'Hot Rock', 'Sub Terra', 'Terra', 'Super Terra', 'Water World', 'Gas Giant Moon', 'Gas Giant', 'Super Jovian', 'Ice Giant', 'Ice Dwarf'];
 var planet_data_chance_life = [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0];
 
@@ -127,7 +127,6 @@ function preload() {
     images.push(img);
   }
   background_img = loadImage('../assets/star_pictures/Milky_Way-view3.jpg');
-
 }
 
 function setup() {
@@ -154,7 +153,6 @@ function setup() {
     // plane(30);
     // sphere(7);
   }
-
 }
 
 function windowResized() {
@@ -173,10 +171,12 @@ function mousePressed() {
 }
 
 function randomized_coordinates() {
+
   var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) + 10));
   var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) + 10));
   var random_psuedo_z = Math.floor(Math.random() * 7) + 3;
 
   var coordinates = [random_x, random_y, random_psuedo_z];
+
   return coordinates;
 }
