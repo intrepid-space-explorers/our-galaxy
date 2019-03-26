@@ -1,0 +1,38 @@
+body{
+    color: azure;
+  }
+
+
+div.title{
+line-height: 3.2;
+font-size: 38px;
+width: 716px;
+margin-left: 40%;
+}
+    
+ul{
+    display: inline-block;
+    float: none;
+    margin: 20%;
+    padding: 3px;
+    border: 1px solid white;
+    margin-right: 5px;
+}
+ 
+
+footer{
+    display: inline-flex;
+    height: 2;
+    margin-left: 90%;
+    float: right;
+  }
+
+.index_button{
+    width: 100px;
+    height: 30px;
+    margin-bottom: 20%;;
+    border-radius: 10px;
+    float: right;
+    display: block;
+    color: gray;
+  }
