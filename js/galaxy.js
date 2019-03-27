@@ -57,12 +57,21 @@ Build_star.prototype.if_clicked = function() {
   var click_difference = dist(this.x, this.y, mouseX, mouseY);
   if (!data_window_open) {
     if (click_difference <= (this.z / 2)) {
-      var position = cursor_quadrant();
       console.log(this);
       var new_div = createDiv('');
       new_div.attribute('id', 'data_div');
-      new_div.position(mouseX, mouseY);
+      var new_y = mouseY;
+      var new_x = mouseX;
       this.populate_with_data();
+
+      if (mouseY > (window.innerHeight / 2)) {
+        new_y = mouseY - (new_div.size().height);
+      }
+      if (mouseX > (window.innerWidth / 2)) {
+        new_x = mouseX - (new_div.size().width);
+      }
+      new_div.position(new_x, new_y);
+
       data_window_open = true;
       var ctx = this;
       var handleScan = function() {
@@ -171,18 +180,6 @@ Build_planet.prototype.populate_with_data = function() {
 
 //=====================
 
-function cursor_quadrant() {
-  if ((mouseX < (window.innerWidth / 2)) && (mouseY < (window.innerHeight / 2))) {
-    console.log('quadrant 1');
-
-  } else if ((mouseX > (window.innerWidth / 2)) && (mouseY < (window.innerHeight / 2))) {
-    console.log('quadrant 2');
-  } else if ((mouseX < (window.innerWidth / 2)) && (mouseY > (window.innerHeight / 2))) {
-    console.log('quadrant 3');
-  } else if ((mouseX > (window.innerWidth / 2)) && (mouseY > (window.innerHeight / 2))) {
-    console.log('quadrant 4');
-  }
-}
 
 //======================
 
