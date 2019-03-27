@@ -8,11 +8,11 @@
 div {
     position: relative;
     background-color: grey;
-    width: 500px;
-    height: fit-content;
+    width: 600px;
+    /* height: fit-content; */
 }
 
-div div {
+div>div {
     width: fit-content;
     display: inline-block;
 }
@@ -26,15 +26,29 @@ div img {
 ul {
     margin: 10px;
     width: 150px;
-    display: inline-block;
-    vertical-align: top;
+    word-wrap: normal;
 }
 
 li {
     margin-bottom: 2px;
+    width: fit-content;
+    word-wrap: normal;
 }
 
 button {
     width: fit-content;
     margin: 5px;
+}
+
+#planet_div {
+    width: 300px;
+    float: right;
+}
+
+.planet {
+    width: 100px;
+}
+
+.planet>img {
+    height: 100px;
 }
