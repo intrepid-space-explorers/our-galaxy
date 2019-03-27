@@ -81,6 +81,7 @@ Build_star.prototype.if_clicked = function() {
       new_div.position(new_x, new_y);
 
       data_window_open = true;
+
       var ctx = this;
       var handleScan = function() {
         ctx.scan_for_planets();
@@ -103,10 +104,11 @@ Build_star.prototype.if_clicked = function() {
 
 Build_star.prototype.populate_with_data = function() {
   var data_div = document.getElementById('data_div');
+  var star_div = document.createElement('div');
 
   var image = document.createElement('img');
   image.setAttribute('src', this.image_url);
-  data_div.appendChild(image);
+  star_div.appendChild(image);
 
   var data_list = document.createElement('ul');
 
@@ -119,21 +121,19 @@ Build_star.prototype.populate_with_data = function() {
   age.textContent = `Age: ${this.age} billion years old.`;
   data_list.appendChild(age);
 
-  var planets = document.createElement('li');
-  planets.textContent = `Planets: ${this.has_planets}`;
-  data_list.appendChild(planets);
-
-  data_div.appendChild(data_list);
+  star_div.appendChild(data_list);
 
   var button = document.createElement('button');
   button.setAttribute('id', 'scan');
   button.textContent = 'Scan For Planets';
-  data_div.appendChild(button);
+  star_div.appendChild(button);
 
   var button = document.createElement('button');
   button.setAttribute('id', 'close_button');
   button.textContent = 'Close';
-  data_div.appendChild(button);
+  star_div.appendChild(button);
+
+  data_div.appendChild(star_div);
 };
 
 Build_star.prototype.scan_for_planets = function() {
@@ -141,13 +141,18 @@ Build_star.prototype.scan_for_planets = function() {
 
   var new_planets_div = document.createElement('div');
   new_planets_div.setAttribute('id', 'planet_div');
-
   data_div.append(new_planets_div);
   if (this.has_planets === true) {
     this.populate_planet_data();
   } else {
     new_planets_div.textContent = 'No planets found';
   }
+
+
+  var button = document.createElement('button');
+  button.setAttribute('id', 'close_button');
+  button.textContent = 'Close';
+  new_planets_div.appendChild(button);
 };
 
 Build_star.prototype.populate_planet_data = function() {
@@ -162,25 +167,23 @@ function Build_planet(index) {
 }
 
 Build_planet.prototype.populate_with_data = function() {
-  var data_div = document.getElementById('planet_div');
+  var planet_div = document.getElementById('planet_div');
+  var new_planet = document.createElement('div');
+  new_planet.setAttribute('class', 'planet');
 
   var image = document.createElement('img');
-  image.setAttribute('src', star_data_image_url[this.image_url]);
-  data_div.appendChild(image);
+  image.setAttribute('src', this.image_url);
+  new_planet.appendChild(image);
 
   var data_list = document.createElement('ul');
 
   var name = document.createElement('li');
-  // console.log(data);
-  name.textContent = `Type: ${this.name}`;
+  name.textContent = `${this.name}`;
+
   data_list.appendChild(name);
+  new_planet.appendChild(data_list);
+  planet_div.appendChild(new_planet);
 
-  data_div.appendChild(data_list);
-
-  var button = document.createElement('button');
-  button.setAttribute('id', 'close_button');
-  button.textContent = 'Close';
-  data_div.appendChild(button);
 };
 
 
@@ -207,7 +210,7 @@ for (var i = 0; i < num_stars; i++) {
   var chance = Math.random(); // set random chance for if star has planets
   if (chance < star_data_chance_planets[s_type]) {
     star_array[i].has_planets = true;
-    var num_planets = Math.floor(Math.random() * 8) + 2;
+    var num_planets = Math.floor(Math.random() * 7) + 2;
     // max number of possible planets in solar system is arbitrarily set to 2 to 10
     for (var j = 0; j < num_planets; j++) {
       var k = 0;
@@ -273,7 +276,7 @@ function preload() {
 
 function setup() {
   var cnv = createCanvas(windowWidth, windowHeight);
-  background(0);
+  background(background_img, 0);
 
   // push();
   // texture(background_img);
@@ -281,6 +284,7 @@ function setup() {
   // translate(0, 0, -1100);
   // plane(5000);
   // pop();
+
   // ambientMaterial(250);
   // directionalLight(255, 255, 255, 0, 1, -2);
 
@@ -313,7 +317,7 @@ function mousePressed() {
 function randomized_coordinates() {
   var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) + 10));
   var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) + 10));
-  var random_psuedo_z = Math.floor(Math.random() * 7) + 3;
+  var random_psuedo_z = Math.floor(Math.random() * 7) + 3; //change to 14 and 6 when image textured anre rendering
   var coordinates = [random_x, random_y, random_psuedo_z];
   return coordinates;
 }
