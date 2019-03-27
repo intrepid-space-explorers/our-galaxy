@@ -6,19 +6,26 @@
 }
 
 div {
-    position: absolute;
+    position: relative;
     background-color: grey;
-    /* width: 500px; */
+    width: 500px;
+    height: fit-content;
+}
+
+div div {
+    width: fit-content;
+    display: inline-block;
 }
 
 div img {
     background-color: black;
+    height: 250px;
     margin: 5px;
 }
 
 ul {
     margin: 10px;
-    width: fit-content;
+    width: 150px;
     display: inline-block;
     vertical-align: top;
 }

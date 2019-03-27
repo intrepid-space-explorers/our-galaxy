@@ -47,14 +47,9 @@ var mark_intel_count = 0;
 var stringy_number_of_stars = localStorage.getItem('number_of_stars');
 var stringy_percent_of_life = localStorage.getItem('%of_pos_life_on_planet');
 var stringy_percent_of_intelligent_life = localStorage.getItem('%of_intelligent_life');
-var life_drake = JSON.parse(stringy_percent_of_life);
-var intel_drake = JSON.parse(stringy_percent_of_intelligent_life);
-var num_stars = JSON.parse(stringy_number_of_stars);
-
-// test set of input variables
-// num_stars = 500;
-// life_drake = 1;
-// intel_drake = .25;
+var life_drake = (JSON.parse(stringy_percent_of_life) || 1);
+var intel_drake = (JSON.parse(stringy_percent_of_intelligent_life) || 0.25);
+var num_stars = (JSON.parse(stringy_number_of_stars) || 1000);
 
 // ================================================
 // Solar System Constructor
@@ -65,9 +60,6 @@ function Build_star() {
   this.planets = [],
   star_array.push(this);
 }
-function Build_planet(index) {
-  star_array[index].planets.push(this);
-}
 
 Build_star.prototype.if_clicked = function() {
   var click_difference = dist(this.x, this.y, mouseX, mouseY);
@@ -76,9 +68,27 @@ Build_star.prototype.if_clicked = function() {
       console.log(this);
       var new_div = createDiv('');
       new_div.attribute('id', 'data_div');
-      new_div.position(mouseX, mouseY);
+      var new_y = mouseY;
+      var new_x = mouseX;
       this.populate_with_data();
+
+      if (mouseY > (window.innerHeight / 2)) {
+        new_y = mouseY - (new_div.size().height);
+      }
+      if (mouseX > (window.innerWidth / 2)) {
+        new_x = mouseX - (new_div.size().width);
+      }
+      new_div.position(new_x, new_y);
+
       data_window_open = true;
+      var ctx = this;
+      var handleScan = function() {
+        ctx.scan_for_planets();
+      };
+
+      var scan = document.getElementById('scan');
+      scan.addEventListener('click', handleScan);
+
       var close = document.getElementById('close_button');
       close.addEventListener('click', close_div);
     }
@@ -90,6 +100,7 @@ Build_star.prototype.if_clicked = function() {
   }
 };
 
+
 Build_star.prototype.populate_with_data = function() {
   var data_div = document.getElementById('data_div');
 
@@ -100,6 +111,7 @@ Build_star.prototype.populate_with_data = function() {
   var data_list = document.createElement('ul');
 
   var name = document.createElement('li');
+  // console.log(data);
   name.textContent = `Type: ${this.name}`;
   data_list.appendChild(name);
 
@@ -114,10 +126,63 @@ Build_star.prototype.populate_with_data = function() {
   data_div.appendChild(data_list);
 
   var button = document.createElement('button');
+  button.setAttribute('id', 'scan');
+  button.textContent = 'Scan For Planets';
+  data_div.appendChild(button);
+
+  var button = document.createElement('button');
   button.setAttribute('id', 'close_button');
   button.textContent = 'Close';
   data_div.appendChild(button);
 };
+
+Build_star.prototype.scan_for_planets = function() {
+  var data_div = document.getElementById('data_div');
+
+  var new_planets_div = document.createElement('div');
+  new_planets_div.setAttribute('id', 'planet_div');
+
+  data_div.append(new_planets_div);
+  if (this.has_planets === true) {
+    this.populate_planet_data();
+  } else {
+    new_planets_div.textContent = 'No planets found';
+  }
+};
+
+Build_star.prototype.populate_planet_data = function() {
+  for (var i = 0; i < this.planets.length; i++) {
+    this.planets[i].populate_with_data();
+    console.log('planet');
+  }
+};
+
+function Build_planet(index) {
+  star_array[index].planets.push(this);
+}
+
+Build_planet.prototype.populate_with_data = function() {
+  var data_div = document.getElementById('planet_div');
+
+  var image = document.createElement('img');
+  image.setAttribute('src', star_data_image_url[this.image_url]);
+  data_div.appendChild(image);
+
+  var data_list = document.createElement('ul');
+
+  var name = document.createElement('li');
+  // console.log(data);
+  name.textContent = `Type: ${this.name}`;
+  data_list.appendChild(name);
+
+  data_div.appendChild(data_list);
+
+  var button = document.createElement('button');
+  button.setAttribute('id', 'close_button');
+  button.textContent = 'Close';
+  data_div.appendChild(button);
+};
+
 
 // ================================================
 // populate star_Array objects
@@ -189,7 +254,6 @@ for (var i = 0; i < num_stars; i++) {
     }
   }
 }
-debugger;
 
 // ================================================
 // p5 Canvas area
@@ -253,3 +317,4 @@ function randomized_coordinates() {
   var coordinates = [random_x, random_y, random_psuedo_z];
   return coordinates;
 }
+
