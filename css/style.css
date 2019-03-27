@@ -88,6 +88,9 @@ body{
   border-radius: 10px;
   font-weight: bold;
 }
+.submit_button:hover{
+  cursor: pointer;
+}
 
 footer{
   display: inline-block;
@@ -105,4 +108,7 @@ footer{
   height: 30px;
   border-radius: 10px;
   font-weight: bold;
+}
+.author_button:hover {
+  cursor: pointer;
 }
