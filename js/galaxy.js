@@ -105,7 +105,7 @@ Build_star.prototype.populate_with_data = function() {
   var data_div = document.getElementById('data_div');
 
   var image = document.createElement('img');
-  image.setAttribute('src', star_data_image_url[this.image_url]);
+  image.setAttribute('src', this.image_url);
   data_div.appendChild(image);
 
   var data_list = document.createElement('ul');
@@ -204,10 +204,10 @@ for (var i = 0; i < num_stars; i++) {
   star_array[i].x = randomized_coordinates()[0];
   star_array[i].y = randomized_coordinates()[1];
   star_array[i].z = randomized_coordinates()[2];
-  var chance = Math.random();  // set random chance for if star has planets
+  var chance = Math.random(); // set random chance for if star has planets
   if (chance < star_data_chance_planets[s_type]) {
     star_array[i].has_planets = true;
-    var num_planets = Math.floor(Math.random() * 8) + 2;  
+    var num_planets = Math.floor(Math.random() * 8) + 2;
     // max number of possible planets in solar system is arbitrarily set to 2 to 10
     for (var j = 0; j < num_planets; j++) {
       var k = 0;
@@ -218,10 +218,10 @@ for (var i = 0; i < num_stars; i++) {
         // conditionals to put hot planets by star and cold planets away from it
         if (
           ((j === 0 && num_planets > 1) && (p_type === 10 || p_type === 11)) ||
-          ((j === num_planets || j === (num_planets - 1)) && (p_type === 0 || p_type === 1)) ||
-          (j > 2 && (p_type === 0 || p_type === 1)) ||
-          (j < num_planets - 3) && (p_type === 10 || p_type === 11)
-          ) {
+                    ((j === num_planets || j === (num_planets - 1)) && (p_type === 0 || p_type === 1)) ||
+                    (j > 2 && (p_type === 0 || p_type === 1)) ||
+                    (j < num_planets - 3) && (p_type === 10 || p_type === 11)
+        ) {
           k = 0;
         } else {
           k = 1;
@@ -231,14 +231,14 @@ for (var i = 0; i < num_stars; i++) {
       star_array[i].planets[j].image_url = planet_data_image_url[p_type];
       star_array[i].planets[j].type = p_type;
       star_array[i].planets[j].name = planet_data_name[p_type];
-      var chance_of_life = Math.random() / life_drake;  // set random chance if planet has life
+      var chance_of_life = Math.random() / life_drake; // set random chance if planet has life
       if (chance_of_life < planet_data_chance_life[p_type]) {
         star_array[i].life = 1;
         total_life_count++;
-        var chance_of_intel = Math.random() / intel_drake;  // set random chance if life is intelligent
+        var chance_of_intel = Math.random() / intel_drake; // set random chance if life is intelligent
         if (star_array[i].age > 4 && chance_of_intel > 1) {
-            star_array[i].intel = 1; 
-            total_intel_count++;
+          star_array[i].intel = 1;
+          total_intel_count++;
         }
       }
       //  dyson sphere logic
@@ -289,7 +289,7 @@ function setup() {
   for (var i in star_array) {
     fill(255);
     ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
-    // texture(images[star_array[i].image_url]);
+    // texture(images[star_array[i].type]);
     // textureMode(NORMAL);
     // plane(30);
     // sphere(7);
@@ -317,4 +317,3 @@ function randomized_coordinates() {
   var coordinates = [random_x, random_y, random_psuedo_z];
   return coordinates;
 }
-
