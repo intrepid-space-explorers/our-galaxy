@@ -2,8 +2,8 @@
 
 ## Developer (Basic)
 
-As a developer I would like to see descriptive console logs so that I'm able to understand the apps workings easily
-As a developer I would like to see commenting in the code so that I'm able to interpret its functionality easily
+⋅⋅* As a developer I would like to see descriptive console logs so that I'm able to understand the apps workings easily
+⋅⋅* As a developer I would like to see commenting in the code so that I'm able to interpret its functionality easily
 As a developer I would like to see consistent naming conventions so that I'm able to interpret the codes functionality easily
 As a developer I would like to see dry code that doesn't repeat itself in order for more efficient rendering
 
