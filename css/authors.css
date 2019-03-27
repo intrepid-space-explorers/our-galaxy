@@ -18,7 +18,18 @@ ul{
     border: 1px solid white;
     margin-right: 5px;
 }
- 
+ li.morgana:hover{
+   cursor: pointer;
+ }
+ li.kris:hover{
+  cursor: pointer;
+}
+li.jon:hover{
+  cursor: pointer;
+}
+li.robert:hover{
+  cursor: pointer;
+}
 
 footer{
     display: inline-flex;
@@ -27,7 +38,8 @@ footer{
     float: right;
   }
 
-.index_button{
+.index_button:hover{
+    cursor: pointer;
     width: 100px;
     height: 30px;
     margin-bottom: 20%;;
