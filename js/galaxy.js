@@ -57,6 +57,7 @@ Build_star.prototype.if_clicked = function() {
   var click_difference = dist(this.x, this.y, mouseX, mouseY);
   if (!data_window_open) {
     if (click_difference <= (this.z / 2)) {
+      var position = cursor_quadrant();
       console.log(this);
       var new_div = createDiv('');
       new_div.attribute('id', 'data_div');
@@ -167,6 +168,23 @@ Build_planet.prototype.populate_with_data = function() {
   button.textContent = 'Close';
   data_div.appendChild(button);
 };
+
+//=====================
+
+function cursor_quadrant() {
+  if ((mouseX < (window.innerWidth / 2)) && (mouseY < (window.innerHeight / 2))) {
+    console.log('quadrant 1');
+
+  } else if ((mouseX > (window.innerWidth / 2)) && (mouseY < (window.innerHeight / 2))) {
+    console.log('quadrant 2');
+  } else if ((mouseX < (window.innerWidth / 2)) && (mouseY > (window.innerHeight / 2))) {
+    console.log('quadrant 3');
+  } else if ((mouseX > (window.innerWidth / 2)) && (mouseY > (window.innerHeight / 2))) {
+    console.log('quadrant 4');
+  }
+}
+
+//======================
 
 
 
