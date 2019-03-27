@@ -28,8 +28,6 @@ body{
 }
 .indexInstructions{
   width: 50%;
-  /* margin-left: 2%; */
-  /* background-color: darkolivegreen; */
   display: inline-block;
 
 }
@@ -86,8 +84,12 @@ body{
   width: 90px;
 }
 .submit_button{
-  width: 93px;
+  width: 95px;
   border-radius: 10px;
+  font-weight: bold;
+}
+.submit_button:hover{
+  cursor: pointer;
 }
 
 footer{
@@ -96,8 +98,17 @@ footer{
   margin-right: -41%;
   margin-top: 29%;
 }
+.author_button_container{
+  float: right;
+  margin-right: 5%;
+  margin-top: 2%;
+}
 .author_button{
   width: 125px;
   height: 30px;
   border-radius: 10px;
+  font-weight: bold;
+}
+.author_button:hover {
+  cursor: pointer;
 }
