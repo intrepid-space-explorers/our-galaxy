@@ -63,9 +63,13 @@ Build_star.prototype.if_clicked = function() {
       new_div.position(mouseX, mouseY);
       this.populate_with_data();
       data_window_open = true;
+      var ctx = this;
+      var handleScan = function() {
+        ctx.scan_for_planets();
+      };
 
       var scan = document.getElementById('scan');
-      scan.addEventListener('click', this.scan_for_planets);
+      scan.addEventListener('click', handleScan);
 
       var close = document.getElementById('close_button');
       close.addEventListener('click', close_div);
@@ -114,14 +118,15 @@ Build_star.prototype.populate_with_data = function() {
   data_div.appendChild(button);
 };
 
+
+
 Build_star.prototype.scan_for_planets = function() {
   var data_div = document.getElementById('data_div');
 
-  var new_planets_div = createDiv('');
-  new_planets_div.attribute('id', 'planet_div');
+  var new_planets_div = document.createElement('div');
+  new_planets_div.setAttribute('id', 'planet_div');
 
   data_div.append(new_planets_div);
-
   if (this.has_planets === true) {
     this.populate_planet_data();
   } else {
@@ -131,7 +136,7 @@ Build_star.prototype.scan_for_planets = function() {
 
 Build_star.prototype.populate_planet_data = function() {
   for (var i = 0; i < this.planets.length; i++) {
-    // this.planets[i].populate_with_data();
+    this.planets[i].populate_with_data();
     console.log('planet');
   }
 };
@@ -140,6 +145,28 @@ function Build_planet(index) {
   star_array[index].planets.push(this);
 }
 
+Build_planet.prototype.populate_with_data = function() {
+  var data_div = document.getElementById('planet_div');
+
+  var image = document.createElement('img');
+  image.setAttribute('src', star_data_image_url[this.image_url]);
+  data_div.appendChild(image);
+
+  var data_list = document.createElement('ul');
+
+  var name = document.createElement('li');
+  // console.log(data);
+  name.textContent = `Type: ${this.name}`;
+  data_list.appendChild(name);
+
+
+  data_div.appendChild(data_list);
+
+  var button = document.createElement('button');
+  button.setAttribute('id', 'close_button');
+  button.textContent = 'Close';
+  data_div.appendChild(button);
+};
 
 
 
