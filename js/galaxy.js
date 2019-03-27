@@ -1,12 +1,13 @@
 'use strict';
 
 var data_window_open = false;
+var planet_window_open = false;
 
 var stringy_number_of_stars = localStorage.getItem('number_of_stars');
 var stringy_percent_of_life = localStorage.getItem('%of_pos_life_on_planet');
 var stringy_percent_of_intelligent_life = localStorage.getItem('%of_intelligent_life');
 
-var num_stars = JSON.parse(stringy_number_of_stars);
+var num_stars = (JSON.parse(stringy_number_of_stars) || 1000);
 var star_array = [];
 var star_types = [
   0, 1, 1, 2, 2, 2, 3, 3, 4, 4,
@@ -62,6 +63,10 @@ Build_star.prototype.if_clicked = function() {
       new_div.position(mouseX, mouseY);
       this.populate_with_data();
       data_window_open = true;
+
+      var scan = document.getElementById('scan');
+      scan.addEventListener('click', this.scan_for_planets);
+
       var close = document.getElementById('close_button');
       close.addEventListener('click', close_div);
     }
@@ -99,17 +104,49 @@ Build_star.prototype.populate_with_data = function() {
   data_div.appendChild(data_list);
 
   var button = document.createElement('button');
+  button.setAttribute('id', 'scan');
+  button.textContent = 'Scan For Planets';
+  data_div.appendChild(button);
+
+  var button = document.createElement('button');
   button.setAttribute('id', 'close_button');
   button.textContent = 'Close';
   data_div.appendChild(button);
+};
+
+Build_star.prototype.scan_for_planets = function() {
+  var data_div = document.getElementById('data_div');
+
+  var new_planets_div = createDiv('');
+  new_planets_div.attribute('id', 'planet_div');
+
+  data_div.append(new_planets_div);
+
+  if (this.has_planets === true) {
+    this.populate_planet_data();
+  } else {
+    new_planets_div.textContent = 'No planets found';
+  }
+};
+
+Build_star.prototype.populate_planet_data = function() {
+  for (var i = 0; i < this.planets.length; i++) {
+    // this.planets[i].populate_with_data();
+    console.log('planet');
+  }
 };
 
 function Build_planet(index) {
   star_array[index].planets.push(this);
 }
 
-var life_drake = JSON.parse(stringy_percent_of_life);
-var intel_drake = JSON.parse(stringy_percent_of_intelligent_life);
+
+
+
+var life_drake = (JSON.parse(stringy_percent_of_life) || 1);
+var intel_drake = (JSON.parse(stringy_percent_of_intelligent_life) || .25);
+console.log(life_drake);
+console.log(intel_drake);
 
 // test set of input variables
 // num_stars = 500;
