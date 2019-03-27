@@ -1,10 +1,6 @@
 'use strict';
 
-var stringy_number_of_stars = localStorage.getItem('number_of_stars');
-var stringy_percent_of_life = localStorage.getItem('%of_pos_life_on_planet');
-var stringy_percent_of_inteligent_life = localStorage.getItem('%of_intelegent_life');
-
-var num_stars = JSON.parse(stringy_number_of_stars);
+var data_window_open = false;
 var star_array = [];
 var star_types = [
   0, 1, 1, 2, 2, 2, 3, 3, 4, 4,
@@ -44,21 +40,28 @@ var total_intel_count = 0;
 var mark_life_count = 0;
 var mark_intel_count = 0;
 
+// ================================================
+// get data from local storage
+// ================================================
+
+var stringy_number_of_stars = localStorage.getItem('number_of_stars');
+var stringy_percent_of_life = localStorage.getItem('%of_pos_life_on_planet');
+var stringy_percent_of_intelligent_life = localStorage.getItem('%of_intelligent_life');
 var life_drake = JSON.parse(stringy_percent_of_life);
 var intel_drake = JSON.parse(stringy_percent_of_intelligent_life);
-
-// WHERE IS num_stars LOAD FROM LS???
+var num_stars = JSON.parse(stringy_number_of_stars);
 
 // test set of input variables
 // num_stars = 500;
-// life_drake = .75;
-// intel_drake = .75;
+// life_drake = 1;
+// intel_drake = .25;
 
 // ================================================
 // Solar System Constructor
 // ================================================
 
 function Build_star() {
+  this.has_planets = false;
   this.planets = [],
   star_array.push(this);
 }
@@ -68,9 +71,53 @@ function Build_planet(index) {
 
 Build_star.prototype.if_clicked = function() {
   var click_difference = dist(this.x, this.y, mouseX, mouseY);
-  if (click_difference <= (this.z / 2)) {
-    console.log(this);
+  if (!data_window_open) {
+    if (click_difference <= (this.z / 2)) {
+      console.log(this);
+      var new_div = createDiv('');
+      new_div.attribute('id', 'data_div');
+      new_div.position(mouseX, mouseY);
+      this.populate_with_data();
+      data_window_open = true;
+      var close = document.getElementById('close_button');
+      close.addEventListener('click', close_div);
+    }
   }
+
+  function close_div() {
+    removeElements();
+    data_window_open = false;
+  }
+};
+
+Build_star.prototype.populate_with_data = function() {
+  var data_div = document.getElementById('data_div');
+
+  var image = document.createElement('img');
+  image.setAttribute('src', star_data_image_url[this.image_url]);
+  data_div.appendChild(image);
+
+  var data_list = document.createElement('ul');
+
+  var name = document.createElement('li');
+  // console.log(data);
+  name.textContent = `Type: ${this.name}`;
+  data_list.appendChild(name);
+
+  var age = document.createElement('li');
+  age.textContent = `Age: ${this.age} billion years old.`;
+  data_list.appendChild(age);
+
+  var planets = document.createElement('li');
+  planets.textContent = `Planets: ${this.has_planets}`;
+  data_list.appendChild(planets);
+
+  data_div.appendChild(data_list);
+
+  var button = document.createElement('button');
+  button.setAttribute('id', 'close_button');
+  button.textContent = 'Close';
+  data_div.appendChild(button);
 };
 
 // ================================================
@@ -78,13 +125,13 @@ Build_star.prototype.if_clicked = function() {
 // ================================================
 
 for (var i = 0; i < num_stars; i++) {
-  // 14 types of stars in database, pick random number 0 to 99, set s-type to star of that number 
+  // 14 types of stars in database, pick random number 0 to 99, set s-type to star of that number
   var chance = Math.floor(Math.random() * 99);
   var chance2 = Math.floor(Math.random() * 99); // easter egg time, add dyson sphere
   if (chance === 99 && chance2 === 99) {
     s_type = 100;
   }
-  var s_type = star_types[chance]; 
+  var s_type = star_types[chance];
   new Build_star();
   star_array[i].image_url = s_type;
   star_array[i].type = s_type;
@@ -93,15 +140,16 @@ for (var i = 0; i < num_stars; i++) {
   star_array[i].x = randomized_coordinates()[0];
   star_array[i].y = randomized_coordinates()[1];
   star_array[i].z = randomized_coordinates()[2];
-  var chance = Math.random();
+  var chance = Math.random();  // set random chance for if star has planets
   if (chance < star_data_chance_planets[s_type]) {
-    // max number of possible planets in solar system is 10
+    star_array[i].has_planets = true;
     var num_planets = Math.floor(Math.random() * 9) + 1;  
+    // max number of possible planets in solar system is 10
     for (var j = 0; j < num_planets; j++) {
-      // 12 types of planets in database, random pick of 0 to 99, set p-type to planet of that number
       var k = 0;
       while (k = 0) {
         var chance = Math.floor(Math.random() * 99);
+        // 12 types of planets in database, random pick of 0 to 99, set p-type to planet of that number
         var p_type = planet_types[chance];
         // conditionals to put hot planets by star and cold planets away from it
         if (((j === 1 && num_planets > 1) && (p_type === 10 || p_type === 11)) || ((j === num_planets || j === (num_planets - 1)) && (p_type === 0 || p_type === 1))) {
@@ -115,12 +163,12 @@ for (var i = 0; i < num_stars; i++) {
       star_array[i].planets[j].type = p_type;
       star_array[i].planets[j].name = planet_data_name[p_type];
       star_array[i].planets[j].age = star_array[i].age;
-      var chance_of_life = Math.random() / life_drake;
+      var chance_of_life = Math.random() / life_drake;  // set random chance if planet has life
       if (chance_of_life < planet_data_chance_life[p_type]) {
         star_array[i].life = 1;
         total_life_count++;
       }
-      var chance_of_intel = Math.random() / intel_drake;
+      var chance_of_intel = Math.random() / intel_drake;  // set random chance if life is intelligent
       if (star_array[i].age > 4) {
         if (chance_of_intel > 1) {
           star_array[i].intel = 1; 
@@ -186,9 +234,8 @@ function windowResized() {
   setup();
 }
 
-function draw() {
-
-}
+// function draw() {
+// }
 
 function mousePressed() {
   for (var i in star_array) {
