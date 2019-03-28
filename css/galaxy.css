@@ -6,28 +6,54 @@
 }
 
 div {
-    position: absolute;
+    position: relative;
     background-color: grey;
-    /* width: 500px; */
+    width: 600px;
+    /* height: fit-content; */
+}
+
+div>div {
+    width: fit-content;
+    display: inline-block;
 }
 
 div img {
     background-color: black;
+    height: 250px;
     margin: 5px;
 }
 
 ul {
     margin: 10px;
-    width: fit-content;
-    display: inline-block;
-    vertical-align: top;
+    width: 150px;
+    word-wrap: normal;
 }
 
 li {
     margin-bottom: 2px;
+    width: fit-content;
+    word-wrap: normal;
 }
 
 button {
     width: fit-content;
     margin: 5px;
+}
+
+#planet_div {
+    width: 300px;
+    float: right;
+}
+
+.planet {
+    width: 100px;
+}
+
+.planet>img {
+    height: 100px;
+}
+
+.planet>ul {
+    margin: 0 auto;
+    width: fit-content;
 }
