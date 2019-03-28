@@ -89,4 +89,12 @@ p {
     border-radius: 10px;
     width: 50%;
     height: 80px;
+    text-align: center;
+    font-size: 2em;
+}
+
+#status_bar>p {
+    margin: 5px auto;
+    font-size: 0.8em;
+    padding: 2px;
 }
