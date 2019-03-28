@@ -5,18 +5,17 @@ var planet_window_open = false;
 var life_counter = 0;
 var intel_counter = 0;
 var star_array = [];
-
-var star_types = [                            
-  0, 1, 1, 2, 2, 2, 3, 3, 4, 4,               // 0 black hole
-  5, 5, 6, 6, 6, 6, 6, 6, 6, 6,               // 1 nuetron star
-  7, 7, 7, 7, 7, 7, 7, 7, 8, 8,               // 2 white dwarf
-  8, 8, 8, 8, 8, 8, 9, 9, 9, 9,               // 3 supernova i
-  9, 9, 9, 9, 9, 9, 9, 9, 9, 9,               // 4 supernova ii
-  9, 9, 9, 9, 9, 9, 9, 10, 10, 10,            // 5 red giant
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10,     // 6 7 8 main i, ii, iii
-  10, 10, 10, 10, 10, 10, 10, 10, 11, 11,     // 9 10 11 red dwarf 1, 2, 3
-  11, 11, 11, 11, 11, 11, 11, 11, 11, 11,     // 12 blue giant
-  11, 11, 11, 11, 11, 11, 11, 11, 12, 12      // 13 dyson shpere
+var star_types = [
+  0, 1, 1, 2, 2, 2, 3, 3, 4, 4, // 0 black hole
+  5, 5, 6, 6, 6, 6, 6, 6, 6, 6, // 1 nuetron star
+  7, 7, 7, 7, 7, 7, 7, 7, 8, 8, // 2 white dwarf
+  8, 8, 8, 8, 8, 8, 9, 9, 9, 9, // 3 supernova i
+  9, 9, 9, 9, 9, 9, 9, 9, 9, 9, // 4 supernova ii
+  9, 9, 9, 9, 9, 9, 9, 10, 10, 10, // 5 red giant
+  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // 6 7 8 main i, ii, iii
+  10, 10, 10, 10, 10, 10, 10, 10, 11, 11, // 9 10 11 red dwarf 1, 2, 3
+  11, 11, 11, 11, 11, 11, 11, 11, 11, 11, // 12 blue giant
+  11, 11, 11, 11, 11, 11, 11, 11, 12, 12 // 13 dyson shpere
 ];
 var planet_types = [
   0, 0, 0, 0, 0, 1, 1, 1, 1, 1, // 0 hot giant
@@ -37,7 +36,7 @@ var star_data_minage = [.1, 5, 7, .1, .1, .1, 2, 3, 4, 2, 2, 2, .1, 4];
 var star_data_maxage = [13, 12, 13, .1, .1, .1, 6, 7, 8, 8, 10, 12, .5, 12];
 var star_data_chance_planets = [0, .01, .05, 0, 0, .4, .9, .9, .9, .9, .9, .9, .05, 1];
 var planet_data_image_url = ['../assets/star_pictures/p0_hot_giant.jpg', '../assets/star_pictures/p1_hot_rocky.jpg', '../assets/star_pictures/p2_rocky_dwarf.jpg', '../assets/star_pictures/p3_sub_terra.jpg', '../assets/star_pictures/p4_terra.jpg', '../assets/star_pictures/p5_super_terra.jpg', '../assets/star_pictures/p6_water_world.jpg', '../assets/star_pictures/p7_gas_giant_moon.jpg', '../assets/star_pictures/p8_gas_giant.jpg', '../assets/star_pictures/p9_super_jovian.jpg', '../assets/star_pictures/p10_ice_giant.jpg', '../assets/star_pictures/p11_ice_dwarf.jpg', '../assets/star_pictures/p12_dyson_sphere.jpg'];
-var planet_data_name = ['Hot Giant', 'Hot Rocky', 'Rocky Dwarf', 'Sub Terra', 'Terra', 'Super Terra', 'Water World', 'Gas Giant Moon', 'Gas Giant', 'Super Jovian', 'Ice Giant', 'Ice Dwarf', 'Dyson Sphere'];
+var planet_data_name = ['Hot Giant', 'Hot Rocky', 'Rocky Dwarf', 'Sub Terra', 'Terra', 'Super Terra', 'Water World', 'Jovian Moon', 'Gas Giant', 'Super Jovian', 'Ice Giant', 'Ice Dwarf', 'Dyson Sphere'];
 var planet_data_chance_life = [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1];
 var total_life_count = 0;
 var total_intel_count = 0;
@@ -187,6 +186,7 @@ Build_star.prototype.scan_for_life = function() {
 
 
 function Build_planet(index) {
+  this.scanned = false;
   star_array[index].planets.push(this);
 }
 
@@ -211,14 +211,18 @@ Build_planet.prototype.populate_with_data = function() {
 };
 
 Build_planet.prototype.check_for_life = function() {
-  if (this.life === 1) {
-    life_counter += 1;
+  if (!this.scanned) {
+    if (this.life === 1) {
+      life_counter += 1;
+    }
+    if (this.intel === 1) {
+      intel_counter += 1;
+    }
+
+    var status_bar = document.getElementById('status_bar');
+    status_bar.innerHTML = `<p>Planets found that have life: ${life_counter}</p><p>Planets found that have intelligent life: ${intel_counter}</p>`;
   }
-  if (this.intel === 1) {
-    intel_counter += 1;
-  }
-  console.log(life_counter);
-  console.log(intel_counter);
+  this.scanned = true;
 };
 
 // ================================================
@@ -226,18 +230,18 @@ Build_planet.prototype.check_for_life = function() {
 // ================================================
 
 for (var i = 0; i < num_stars; i++) {
+  // 14 types of stars in database, pick random number 0 to 99, set s-type to star of that number
   var chance = Math.floor(Math.random() * 99);
-
-  // 14 types of stars in database, pick random number 0 to 99, set s-type to star of that number from star_data
-  var s_type = star_types[chance];
   var chance2 = Math.random();
-  if (chance2 > 0.999) { s_type = 13; }
   // easter egg time!  add dyson sphere
+  if (chance2 > 0.999) { s_type = 13; }
+  var s_type = star_types[chance];
   new Build_star();
   star_array[i].image_url = star_data_image_url[s_type];
   star_array[i].type = s_type;
   star_array[i].name = star_data_name[s_type];
-  star_array[i].age = ((star_data_maxage[s_type] - star_data_minage[s_type]) * (Math.random()) + star_data_minage[s_type]).toFixed(3);
+  var age = (Math.round((star_data_maxage[s_type] - star_data_minage[s_type]) * Math.random() * 1000));
+  star_array[i].age = age / 1000 + Math.floor(star_data_minage[s_type]);
   star_array[i].x = randomized_coordinates()[0];
   star_array[i].y = randomized_coordinates()[1];
   star_array[i].z = randomized_coordinates()[2];
@@ -282,7 +286,7 @@ for (var i = 0; i < num_stars; i++) {
         }
       }
       //  dyson sphere logic
-      if (star_array[i].type === 13) {
+      if (star_array[i].type === 100) {
         star_array[i].planets[j].image_url = planet_data_image_url[12];
         star_array[i].planets[j].type = 12;
         star_array[i].planets[j].name = planet_data_name[12];
