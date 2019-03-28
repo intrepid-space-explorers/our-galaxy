@@ -97,7 +97,8 @@ Build_star.prototype.if_clicked = function() {
   }
 
   function close_div() {
-    removeElements();
+    var container = document.getElementById('data_div');
+    container.remove();
     data_window_open = false;
     planet_window_open = false;
   }
@@ -275,47 +276,21 @@ function preload() {
 function setup() {
   var cnv = createCanvas(windowWidth, windowHeight);
   background(background_img, 0);
-
-  // ================= NEW ==========================
+  var status_bar = createDiv('');
+  status_bar.attribute('id', 'status_bar');
+  var pos_x = window.innerWidth * 0.25;
+  var pos_y = window.innerHeight - status_bar.size().height;
+  status_bar.position(pos_x, pos_y);
 
   imageMode(CENTER);
-
-  // ================= NEW ==========================
-
-  // push();
-  // texture(background_img);
-  // textureMode(NORMAL);
-  // translate(0, 0, -1100);
-  // plane(5000);
-  // pop();
-
-  // ambientMaterial(250);
-  // directionalLight(255, 255, 255, 0, 1, -2);
-
   noStroke();
-
-
-
-  // ================= NEW ==========================
 
   for (var i in star_array) {
     fill(0, 0, 0, 1);
     image(images[star_array[i].type], star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
     ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
-
-    // fill(255);
-    // ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
-
-    // texture(images[star_array[i].type]);
-    // textureMode(NORMAL);
-    // plane(30);
-    // sphere(7);
   }
 }
-
-// ================= NEW ==========================
-
-
 
 
 function windowResized() {

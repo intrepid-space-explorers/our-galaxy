@@ -9,12 +9,16 @@ div {
     position: relative;
     background-color: grey;
     width: 600px;
+    background-color: grey;
+    border: 3px ridge rgb(25, 93, 156);
+    border-radius: 10px;
     /* height: fit-content; */
 }
 
 div>div {
     width: fit-content;
     display: inline-block;
+    border: none;
 }
 
 div img {
@@ -56,4 +60,12 @@ button {
 .planet>ul {
     margin: 0 auto;
     width: fit-content;
+}
+
+#status_bar {
+    background-color: grey;
+    border: 3px ridge rgb(25, 93, 156);
+    border-radius: 10px;
+    width: 50%;
+    height: 80px;
 }
