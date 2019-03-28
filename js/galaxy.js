@@ -249,7 +249,6 @@ for (var i = 0; i < num_stars; i++) {
         star_array[i].planets[j].image_url = planet_data_image_url[12];
         star_array[i].planets[j].type = 12;
         star_array[i].planets[j].name = planet_data_name[12];
-        star_array[i].planets[j].age = star_array[i].age;
         star_array[i].life = 1;
         star_array[i].intel = 1;
         j = num_planets;
@@ -278,6 +277,12 @@ function setup() {
   var cnv = createCanvas(windowWidth, windowHeight);
   background(background_img, 0);
 
+  // ================= NEW ==========================
+
+  imageMode(CENTER);
+
+  // ================= NEW ==========================
+
   // push();
   // texture(background_img);
   // textureMode(NORMAL);
@@ -290,15 +295,25 @@ function setup() {
 
   noStroke();
 
+
+
+// ================= NEW ==========================
+
   for (var i in star_array) {
-    fill(255);
-    ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
+    fill(0,0,0,1);
+    image(images[star_array[i].type], star_array[i].x, star_array[i].y, images[star_array[i].type].height / 4, images[star_array[i].type].width /4)
+    square(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
     // texture(images[star_array[i].type]);
     // textureMode(NORMAL);
     // plane(30);
     // sphere(7);
   }
 }
+
+// ================= NEW ==========================
+
+
+
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
@@ -317,7 +332,7 @@ function mousePressed() {
 function randomized_coordinates() {
   var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) + 10));
   var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) + 10));
-  var random_psuedo_z = Math.floor(Math.random() * 7) + 3; //change to 14 and 6 when image textured anre rendering
+  var random_psuedo_z = Math.floor(Math.random() * 14) + 6; //change to 14 and 6 when image textured anre rendering
   var coordinates = [random_x, random_y, random_psuedo_z];
   return coordinates;
 }
