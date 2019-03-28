@@ -149,7 +149,9 @@ Build_star.prototype.scan_for_planets = function() {
     if (this.has_planets === true) {
       this.populate_planet_data();
     } else {
-      new_planets_div.textContent = 'No planets found';
+      var none = document.createElement('p');
+      none.textContent = 'No planets found';
+      new_planets_div.appendChild(none);
     }
   }
   planet_window_open = true;
@@ -275,6 +277,7 @@ function preload() {
 
 function setup() {
   var cnv = createCanvas(windowWidth, windowHeight);
+  background(0);
   background(background_img, 0);
   var status_bar = createDiv('');
   status_bar.attribute('id', 'status_bar');

@@ -19,6 +19,7 @@ div>div {
     width: fit-content;
     display: inline-block;
     border: none;
+    width: 45%;
 }
 
 div img {
@@ -29,7 +30,7 @@ div img {
 
 ul {
     margin: 10px;
-    width: 150px;
+    width: 250px;
     word-wrap: normal;
 }
 
@@ -45,16 +46,26 @@ button {
 }
 
 #planet_div {
-    width: 300px;
+    width: 55%;
     float: right;
+    text-align: center;
+    padding-right: 2px;
+}
+
+p {
+    text-align: center;
+    margin-top: 100px;
+    font-size: 2em;
 }
 
 .planet {
-    width: 100px;
+    width: 32%;
+    margin: auto;
 }
 
 .planet>img {
-    height: 100px;
+    height: 100%;
+    margin-bottom: -2px;
 }
 
 .planet>ul {
