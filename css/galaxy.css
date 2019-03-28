@@ -8,11 +8,14 @@
 div {
     position: relative;
     background-color: grey;
-    width: 600px;
+    width: 50%;
     background-color: grey;
     border: 3px ridge rgb(25, 93, 156);
     border-radius: 10px;
-    /* height: fit-content; */
+}
+
+div:not(#status_bar) {
+    max-width: 600px;
 }
 
 div>div {
@@ -22,15 +25,17 @@ div>div {
     width: 45%;
 }
 
-div img {
+div>img {
     background-color: black;
-    height: 250px;
+    width: 100%;
+    max-width: 250px;
     margin: 5px;
 }
 
 ul {
     margin: 10px;
-    width: 250px;
+    width: 100%;
+    max-width: 250px;
     word-wrap: normal;
 }
 
@@ -65,6 +70,7 @@ p {
 
 .planet>img {
     height: 100%;
+    max-width: 100px;
     margin-bottom: -2px;
 }
 
