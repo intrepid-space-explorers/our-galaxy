@@ -1,6 +1,7 @@
 'use strict';
 
 var data_window_open = false;
+var planet_window_open = false;
 var star_array = [];
 var star_types = [
   0, 1, 1, 2, 2, 2, 3, 3, 4, 4,
@@ -98,6 +99,7 @@ Build_star.prototype.if_clicked = function() {
   function close_div() {
     removeElements();
     data_window_open = false;
+    planet_window_open = false;
   }
 };
 
@@ -139,20 +141,17 @@ Build_star.prototype.populate_with_data = function() {
 Build_star.prototype.scan_for_planets = function() {
   var data_div = document.getElementById('data_div');
 
-  var new_planets_div = document.createElement('div');
-  new_planets_div.setAttribute('id', 'planet_div');
-  data_div.append(new_planets_div);
-  if (this.has_planets === true) {
-    this.populate_planet_data();
-  } else {
-    new_planets_div.textContent = 'No planets found';
+  if (!planet_window_open) {
+    var new_planets_div = document.createElement('div');
+    new_planets_div.setAttribute('id', 'planet_div');
+    data_div.append(new_planets_div);
+    if (this.has_planets === true) {
+      this.populate_planet_data();
+    } else {
+      new_planets_div.textContent = 'No planets found';
+    }
   }
-
-
-  var button = document.createElement('button');
-  button.setAttribute('id', 'close_button');
-  button.textContent = 'Close';
-  new_planets_div.appendChild(button);
+  planet_window_open = true;
 };
 
 Build_star.prototype.populate_planet_data = function() {
@@ -297,12 +296,16 @@ function setup() {
 
 
 
-// ================= NEW ==========================
+  // ================= NEW ==========================
 
   for (var i in star_array) {
-    fill(0,0,0,1);
-    image(images[star_array[i].type], star_array[i].x, star_array[i].y, images[star_array[i].type].height / 4, images[star_array[i].type].width /4)
-    square(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
+    fill(0, 0, 0, 1);
+    image(images[star_array[i].type], star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
+    ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
+
+    // fill(255);
+    // ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
+
     // texture(images[star_array[i].type]);
     // textureMode(NORMAL);
     // plane(30);
@@ -330,9 +333,9 @@ function mousePressed() {
 }
 
 function randomized_coordinates() {
-  var random_x = Math.floor(((Math.random() * (window.innerWidth - 20)) + 10));
-  var random_y = Math.floor(((Math.random() * (window.innerHeight - 20)) + 10));
-  var random_psuedo_z = Math.floor(Math.random() * 14) + 6; //change to 14 and 6 when image textured anre rendering
+  var random_x = Math.floor(((Math.random() * (window.innerWidth - 200)) + 100));
+  var random_y = Math.floor(((Math.random() * (window.innerHeight - 200)) + 100));
+  var random_psuedo_z = Math.floor(Math.random() * 22) + 17; //change to 14 and 6 when image textured anre rendering
   var coordinates = [random_x, random_y, random_psuedo_z];
   return coordinates;
 }
