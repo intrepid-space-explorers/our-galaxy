@@ -60,6 +60,7 @@ var num_stars = (JSON.parse(stringy_number_of_stars) || 1000);
 
 function Build_star() {
   this.has_planets = false;
+  this.scan_status = 'Not scanned';
   this.planets = [],
   star_array.push(this);
 }
@@ -133,6 +134,11 @@ Build_star.prototype.populate_with_data = function() {
   age.textContent = `Age: ${this.age} billion years old.`;
   data_list.appendChild(age);
 
+  var scan_status = document.createElement('li');
+  scan_status.setAttribute('id', 'scan_status');
+  scan_status.textContent = `Scan Status: ${this.scan_status}`;
+  data_list.appendChild(scan_status);
+
   star_div.appendChild(data_list);
 
   var scan = document.createElement('button');
@@ -155,6 +161,10 @@ Build_star.prototype.populate_with_data = function() {
 
 Build_star.prototype.scan_for_planets = function() {
   var data_div = document.getElementById('data_div');
+  var scanned = document.getElementById('scan_status');
+
+  this.scan_status = 'Scanned For Planets';
+  scanned.textContent = `Scan Status: ${this.scan_status}`;
 
   if (!planet_window_open) {
     var new_planets_div = document.createElement('div');
@@ -180,6 +190,11 @@ Build_star.prototype.populate_planet_data = function() {
 
 Build_star.prototype.scan_for_life = function() {
   for (var i = 0; i < this.planets.length; i++) {
+    var scanned = document.getElementById('scan_status');
+    scanned.textContent = `Scan Status: ${this.scan_status}`;
+
+    this.scan_status = 'Scanned For Life';
+
     this.planets[i].check_for_life();
   }
 };
@@ -240,8 +255,7 @@ for (var i = 0; i < num_stars; i++) {
   star_array[i].image_url = star_data_image_url[s_type];
   star_array[i].type = s_type;
   star_array[i].name = star_data_name[s_type];
-  var age = (Math.round((star_data_maxage[s_type] - star_data_minage[s_type]) * Math.random() * 1000));
-  star_array[i].age = age / 1000 + Math.floor(star_data_minage[s_type]);
+  star_array[i].age = ((star_data_maxage[s_type] - star_data_minage[s_type]) * (Math.random()) + star_data_minage[s_type]).toFixed(3);
   star_array[i].x = randomized_coordinates()[0];
   star_array[i].y = randomized_coordinates()[1];
   star_array[i].z = randomized_coordinates()[2];
