@@ -330,10 +330,6 @@ function setup() {
   }
 }
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  setup();
-}
 
 function mousePressed() {
   for (var i in star_array) {

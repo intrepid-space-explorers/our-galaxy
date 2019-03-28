@@ -18,6 +18,10 @@ div:not(#status_bar) {
     max-width: 600px;
 }
 
+#data_div {
+    min-height: 350px;
+}
+
 div>div {
     width: fit-content;
     display: inline-block;
