@@ -36,9 +36,10 @@ div>img {
     margin: 5px;
 }
 
-ul {
+ul:not(#status_bar>ul) {
     margin: 10px;
     width: 100%;
+    padding-left: 5px;
     max-width: 250px;
     word-wrap: normal;
 }
@@ -89,12 +90,24 @@ p {
     border-radius: 10px;
     width: 50%;
     height: 80px;
-    text-align: center;
     font-size: 2em;
 }
 
-#status_bar>p {
+#status_bar>ul {
+    width: 80%;
+    display: inline-block;
+}
+
+#status_bar li {
     margin: 5px auto;
     font-size: 0.8em;
     padding: 2px;
+}
+
+#status_bar button {
+    float: right;
+    margin-top: 23px;
+    margin-right: 20px;
+    padding: 2px 5px;
+    font-size: 16px;
 }
