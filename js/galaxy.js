@@ -220,7 +220,7 @@ Build_planet.prototype.check_for_life = function() {
     }
 
     var status_bar = document.getElementById('status_bar');
-    status_bar.innerHTML = `<p>Planets found that have life: ${life_counter}</p><p>Planets found that have intelligent life: ${intel_counter}</p>`;
+    status_bar.innerHTML = `<ul><li>Planets found that have life: ${life_counter}</li><li>Planets found that have intelligent life: ${intel_counter}</li></ul> <a href='../index.html'><button>Home</button></a>`;
   }
   this.scanned = true;
 };
@@ -319,7 +319,7 @@ function setup() {
   background(0);
   background(background_img, 0);
 
-  var status_bar = createDiv('');
+  var status_bar = createDiv('<a href=\'../index.html\'><button>Home</button></a>');
   status_bar.attribute('id', 'status_bar');
   var pos_x = window.innerWidth / 4;
   var pos_y = window.innerHeight - status_bar.size().height;
