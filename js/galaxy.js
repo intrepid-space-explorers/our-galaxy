@@ -3,30 +3,30 @@
 var data_window_open = false;
 var planet_window_open = false;
 var star_array = [];
-var star_types = [
-  0, 1, 1, 2, 2, 2, 3, 3, 4, 4,
-  5, 5, 5, 6, 6, 6, 6, 6, 6, 6,
-  7, 7, 7, 7, 7, 7, 7, 7, 8, 8,
-  8, 8, 8, 8, 8, 8, 9, 9, 9, 9,
-  9, 9, 9, 9, 9, 9, 9, 9, 9, 9,
-  9, 9, 9, 9, 9, 9, 9, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 11, 11,
-  11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
-  11, 11, 11, 11, 11, 11, 11, 11, 11, 12, 13
+var star_types = [                            
+  0, 1, 1, 2, 2, 2, 3, 3, 4, 4,               // 0 black hole
+  5, 5, 6, 6, 6, 6, 6, 6, 6, 6,               // 1 nuetron star
+  7, 7, 7, 7, 7, 7, 7, 7, 8, 8,               // 2 white dwarf
+  8, 8, 8, 8, 8, 8, 9, 9, 9, 9,               // 3 supernova i
+  9, 9, 9, 9, 9, 9, 9, 9, 9, 9,               // 4 supernova ii
+  9, 9, 9, 9, 9, 9, 9, 10, 10, 10,            // 5 red giant
+  10, 10, 10, 10, 10, 10, 10, 10, 10, 10,     // 6 7 8 main i, ii, iii
+  10, 10, 10, 10, 10, 10, 10, 10, 11, 11,     // 9 10 11 red dwarf 1, 2, 3
+  11, 11, 11, 11, 11, 11, 11, 11, 11, 11,     // 12 blue giant
+  11, 11, 11, 11, 11, 11, 11, 11, 12, 12, 13  // 13 dyson shpere
 ];
 var planet_types = [
-  0, 0, 0, 0, 0, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 2, 2, 2, 2, 2,
-  3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-  4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-  5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-  6, 6, 7, 7, 7, 8, 8, 8, 8, 8,
-  8, 8, 8, 8, 8, 8, 8, 8, 8, 8,
-  8, 8, 8, 8, 8, 9, 9, 9, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 11, 11
+  0, 0, 0, 0, 0, 1, 1, 1, 1, 1,               // 0 hot giant
+  1, 1, 1, 1, 1, 2, 2, 2, 2, 2,               // 1 hot rocky
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3,               // 2 rocky dwarf
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4,               // 3 4 5 sub, terra, super
+  5, 5, 5, 5, 5, 5, 5, 5, 5, 5,               // 6 water world
+  6, 6, 7, 7, 7, 8, 8, 8, 8, 8,               // 7 gas giant moon
+  8, 8, 8, 8, 8, 8, 8, 8, 8, 8,               // 8 gas giant
+  8, 8, 8, 8, 8, 9, 9, 9, 10, 10,             // 9 super jovian
+  10, 10, 10, 10, 10, 10, 10, 10, 10, 10,     // 10 ice giant
+  10, 10, 10, 10, 10, 10, 10, 10, 10, 10,     // 11 ice dwarf
+  10, 10, 10, 10, 10, 10, 10, 10, 11, 11      // 12 dyson shpere
 ];
 var star_data_image_url = ['../assets/star_pictures/s0_blackhole.png', '../assets/star_pictures/s1_neutron.png', '../assets/star_pictures/s2_white_dwarf.png', '../assets/star_pictures/s3_supernova_i.png', '../assets/star_pictures/s4_supernova_ii.png', '../assets/star_pictures/s5_red_giant.png', '../assets/star_pictures/s6_main_i.png', '../assets/star_pictures/s7_main_ii.png', '../assets/star_pictures/s8_main_iii.png', '../assets/star_pictures/s9_red_dwarf_1.png', '../assets/star_pictures/s10_red_dwarf_2.png', '../assets/star_pictures/s11_red_dwarf_3.png', '../assets/star_pictures/s12_blue_giant.png', '../assets/star_pictures/s13_dyson_sphere.png'];
 var star_data_name = ['Black Hole', 'Neutron Star', 'White Dwarf', 'Supernova-I', 'Supernova-II', 'Red Giant', 'Main Sequence I', 'Main Sequence II', 'Main Sequence III', 'Red Dwarf I', 'Red Dwarf II', 'Red Dwarf III', 'Blue Giant', 'Dyson Sphere'];
@@ -103,7 +103,6 @@ Build_star.prototype.if_clicked = function() {
   }
 };
 
-
 Build_star.prototype.populate_with_data = function() {
   var data_div = document.getElementById('data_div');
   var star_div = document.createElement('div');
@@ -115,7 +114,7 @@ Build_star.prototype.populate_with_data = function() {
   var data_list = document.createElement('ul');
 
   var name = document.createElement('li');
-  // console.log(data);
+
   name.textContent = `Type: ${this.name}`;
   data_list.appendChild(name);
 
@@ -185,7 +184,6 @@ Build_planet.prototype.populate_with_data = function() {
 
 };
 
-
 // ================================================
 // populate star_Array objects
 // ================================================
@@ -193,24 +191,24 @@ Build_planet.prototype.populate_with_data = function() {
 for (var i = 0; i < num_stars; i++) {
   // 14 types of stars in database, pick random number 0 to 99, set s-type to star of that number
   var chance = Math.floor(Math.random() * 99);
-  var chance2 = Math.floor(Math.random() * 99); // easter egg time!  add dyson sphere
-  if (chance === 99 && chance2 === 99) {
-    s_type = 100;
-  }
+  var chance2 = Math.floor(Math.random() * 99); 
+  // easter egg time!  add dyson sphere
+  if (chance === 99 && chance2 === 99) { s_type = 100; }
   var s_type = star_types[chance];
   new Build_star();
   star_array[i].image_url = star_data_image_url[s_type];
   star_array[i].type = s_type;
   star_array[i].name = star_data_name[s_type];
-  star_array[i].age = (Math.floor((star_data_maxage[s_type] - star_data_minage[s_type]) * Math.random() * 1000)) / 1000 + star_data_minage[s_type];
+  star_array[i].age = (Math.floor((star_data_maxage[s_type] - star_data_minage[s_type]) * Math.random() * 1000)) / 1000 + Math.floor(star_data_minage[s_type]);
   star_array[i].x = randomized_coordinates()[0];
   star_array[i].y = randomized_coordinates()[1];
   star_array[i].z = randomized_coordinates()[2];
-  var chance = Math.random(); // set random chance for if star has planets
+  var chance = Math.random(); 
+  // set random chance for if star has planets
   if (chance < star_data_chance_planets[s_type]) {
     star_array[i].has_planets = true;
     var num_planets = Math.floor(Math.random() * 7) + 2;
-    // max number of possible planets in solar system is arbitrarily set to 2 to 10
+    // max number of possible planets in solar system is arbitrarily set to 2 to 9
     for (var j = 0; j < num_planets; j++) {
       var k = 0;
       while (k === 0) {
@@ -220,9 +218,9 @@ for (var i = 0; i < num_stars; i++) {
         // conditionals to put hot planets by star and cold planets away from it
         if (
           ((j === 0 && num_planets > 1) && (p_type === 10 || p_type === 11)) ||
-                    ((j === num_planets || j === (num_planets - 1)) && (p_type === 0 || p_type === 1)) ||
-                    (j > 2 && (p_type === 0 || p_type === 1)) ||
-                    (j < num_planets - 3) && (p_type === 10 || p_type === 11)
+            ((j === num_planets || j === (num_planets - 1)) && (p_type === 0 || p_type === 1)) ||
+            (j > 2 && (p_type === 0 || p_type === 1)) ||
+            (j < num_planets - 3) && (p_type === 10 || p_type === 11)
         ) {
           k = 0;
         } else {
@@ -233,11 +231,13 @@ for (var i = 0; i < num_stars; i++) {
       star_array[i].planets[j].image_url = planet_data_image_url[p_type];
       star_array[i].planets[j].type = p_type;
       star_array[i].planets[j].name = planet_data_name[p_type];
-      var chance_of_life = Math.random() / life_drake; // set random chance if planet has life
+      var chance_of_life = Math.random() / life_drake; 
+      // set random chance if planet has life
       if (chance_of_life < planet_data_chance_life[p_type]) {
         star_array[i].life = 1;
         total_life_count++;
-        var chance_of_intel = Math.random() / intel_drake; // set random chance if life is intelligent
+        var chance_of_intel = Math.random() / intel_drake; 
+        // set random chance if life is intelligent
         if (star_array[i].age > 4 && chance_of_intel > 1) {
           star_array[i].intel = 1;
           total_intel_count++;
@@ -275,56 +275,19 @@ function preload() {
 function setup() {
   var cnv = createCanvas(windowWidth, windowHeight);
   background(background_img, 0);
-
-  // ================= NEW ==========================
-
   imageMode(CENTER);
-
-  // ================= NEW ==========================
-
-  // push();
-  // texture(background_img);
-  // textureMode(NORMAL);
-  // translate(0, 0, -1100);
-  // plane(5000);
-  // pop();
-
-  // ambientMaterial(250);
-  // directionalLight(255, 255, 255, 0, 1, -2);
-
   noStroke();
-
-
-
-  // ================= NEW ==========================
-
   for (var i in star_array) {
     fill(0, 0, 0, 1);
     image(images[star_array[i].type], star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
     ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
-
-    // fill(255);
-    // ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
-
-    // texture(images[star_array[i].type]);
-    // textureMode(NORMAL);
-    // plane(30);
-    // sphere(7);
   }
 }
-
-// ================= NEW ==========================
-
-
-
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   setup();
 }
-
-// function draw() {
-// }
 
 function mousePressed() {
   for (var i in star_array) {
@@ -335,7 +298,8 @@ function mousePressed() {
 function randomized_coordinates() {
   var random_x = Math.floor(((Math.random() * (window.innerWidth - 200)) + 100));
   var random_y = Math.floor(((Math.random() * (window.innerHeight - 200)) + 100));
-  var random_psuedo_z = Math.floor(Math.random() * 22) + 17; //change to 14 and 6 when image textured anre rendering
+  var random_psuedo_z = Math.floor(Math.random() * 22) + 17; 
+  //change 22 and 17 to change star image sizes and depth of view
   var coordinates = [random_x, random_y, random_psuedo_z];
   return coordinates;
 }
