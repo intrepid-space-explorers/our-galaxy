@@ -5,10 +5,9 @@ body{
 .indexTitle{
   width: 716px;
   height: 80px;
-  margin-left: 29%;
+  margin: auto;
   margin-top: 1%;
   margin-bottom: 2%;
-  /* background-color: rebeccapurple; */
 }
 .indexTitle > h1{
   font-size: 60px;
@@ -41,7 +40,6 @@ body{
   font-family: 'Roboto', sans-serif;
 }
 .right_side_box{
-  /* background-color: mediumspringgreen; */
   height: 60%;
   width: 45%;
   font-family: 'Roboto', sans-serif;
@@ -52,9 +50,7 @@ body{
   width: 100%;
   height: 50%;
   font-size: 20px;
-  /* margin-left: 8%; */
   margin-top: 4%;
-  /* background-color: indigo; */
 }
 .indexRules > h3{
   font-weight: bold;
@@ -73,7 +69,6 @@ body{
   height: 180px;
   margin-left: 22px;
   margin-top: 20px;
-  /* background-color: darkblue; */
   float: left;
 }
 .star_input_element{
