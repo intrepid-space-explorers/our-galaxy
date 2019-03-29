@@ -3,13 +3,14 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    color: gold;
 }
 
 div {
     position: relative;
-    background-color: grey;
     width: 50%;
-    background-color: grey;
+    background-color: rgb(56, 56, 56);
     border: 3px ridge rgb(25, 93, 156);
     border-radius: 10px;
 }
@@ -27,6 +28,7 @@ div>div {
     display: inline-block;
     border: none;
     width: 45%;
+    font-family: 'Roboto', sans-serif;
 }
 
 div>img {
@@ -48,11 +50,19 @@ li {
     margin-bottom: 2px;
     width: fit-content;
     word-wrap: normal;
+    padding: 0 0 0 5px;
 }
 
 button {
+    color: black;
     width: fit-content;
     margin: 5px;
+    border-radius: 10px;
+    padding: 1px 3px;
+}
+
+button:disabled {
+    opacity: 0.5;
 }
 
 #planet_div {
@@ -60,12 +70,14 @@ button {
     float: right;
     text-align: center;
     padding-right: 2px;
+    font-family: 'Roboto', sans-serif;
 }
 
 p {
     text-align: center;
     margin-top: 100px;
     font-size: 2em;
+    font-family: 'Roboto', sans-serif;
 }
 
 .planet {
@@ -84,13 +96,22 @@ p {
     width: fit-content;
 }
 
+.life {
+    border: 3px solid green;
+}
+
+.intel {
+    border: 3px solid blue;
+}
+
 #status_bar {
-    background-color: grey;
+    background-color: rgb(56, 56, 56);
     border: 3px ridge rgb(25, 93, 156);
     border-radius: 10px;
     width: 50%;
     height: 80px;
     font-size: 2em;
+    font-family: 'Roboto', sans-serif;
 }
 
 #status_bar>ul {
