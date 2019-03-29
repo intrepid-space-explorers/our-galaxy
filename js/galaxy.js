@@ -204,7 +204,7 @@ Build_star.prototype.scan_for_life = function() {
     console.log(i);
     this.planets[i].check_for_life(this, i);
     if (this.planets[i].life) { life = true; }
-        if (!life) {
+    if (!life) {
       this.scan_status = 'No life found';
       scanned.textContent = `Scan Status: ${this.scan_status}`;
     }
@@ -241,19 +241,19 @@ Build_planet.prototype.check_for_life = function(star, planet_index) {
   var scanned = document.getElementById('scan_status');
   var planet = document.getElementById(`planet_${planet_index}`);
   console.log(star.scanned_for_planets);
-    if (this.life === 1) {
-      life_counter += 1;
-      star.scan_status = 'Success!  Life found!';
-      planet.setAttribute('class', 'life');
-    }
-    if (this.intel === 1) {
-      intel_counter += 1;
-      star.scan_status = 'Success! INTELLIGENCE found!';
-      planet.setAttribute('class', 'intel');
-    }
-    scanned.textContent = `Scan Status: ${star.scan_status}`;
-    var status_bar = document.getElementById('status_bar');
-    status_bar.innerHTML = `<ul><li>Planets found that have life: ${life_counter}</li><li>Planets found that have intelligent life: ${intel_counter}</li></ul> <a href='../index.html'><button>Back</button></a>`;
+  if (this.life === 1) {
+    life_counter += 1;
+    star.scan_status = 'Success!  Life found!';
+    planet.setAttribute('class', 'life');
+  }
+  if (this.intel === 1) {
+    intel_counter += 1;
+    star.scan_status = 'Success! INTELLIGENCE found!';
+    planet.setAttribute('class', 'intel');
+  }
+  scanned.textContent = `Scan Status: ${star.scan_status}`;
+  var status_bar = document.getElementById('status_bar');
+  status_bar.innerHTML = `<ul><li>Planets found that have life: ${life_counter}</li><li>Planets found that have intelligent life: ${intel_counter}</li></ul> <a href='../index.html'><button>Back</button></a>`;
   this.scanned = true;
 };
 
@@ -353,7 +353,7 @@ function setup() {
   background(0);
   background(background_img, 0);
 
-  var status_bar = createDiv('<ul><li>Planets found that have life: 0</li><li>Planets found that have intelligent life: 0</li></ul> <a href=\'.. /index.html \'><button>Back</button></a>');
+  var status_bar = createDiv('<ul><li>Planets found that have life: 0</li><li>Planets found that have intelligent life: 0</li></ul> <a href=\'../index.html \'><button>Back</button></a>');
   status_bar.attribute('id', 'status_bar');
   var pos_x = window.innerWidth / 4;
   var pos_y = window.innerHeight - status_bar.size().height;
