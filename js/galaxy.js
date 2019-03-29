@@ -238,17 +238,17 @@ Build_planet.prototype.check_for_life = function(star, planet_index) {
   var planet = document.getElementById(`planet_${planet_index}`);
   console.log(star.scanned_for_planets);
   if (star.scanned_for_planets) {
-    if (!this.scanned) {
-      if (this.life === 1) {
-        life_counter += 1;
-        star.scan_status = 'Success!  Life found!';
-        planet.setAttribute('class', 'life');
-      }
-      if (this.intel === 1) {
-        intel_counter += 1;
-        star.scan_status = 'Success! INTELLIGENCE found!';
-        planet.setAttribute('class', 'intel');
-      }
+    if (this.life === 1) {
+      life_counter += 1;
+      star.scan_status = 'Success!  Life found!';
+      planet.setAttribute('class', 'life');
+    } else {
+      star.scan_status = 'No Life Found';
+    }
+    if (this.intel === 1) {
+      intel_counter += 1;
+      star.scan_status = 'Success! INTELLIGENCE found!';
+      planet.setAttribute('class', 'intel');
     }
     scanned.textContent = `Scan Status: ${star.scan_status}`;
     var status_bar = document.getElementById('status_bar');
