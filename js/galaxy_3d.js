@@ -381,6 +381,8 @@ var createScene = function() {
     star.material = texture;
     star.position = new BABYLON.Vector3(star_array[i].x, star_array[i].y, star_array[i].z);
   }
+  var skybox = new BABYLON.CubeTexture('../assets/textures/milky_way', scene);
+  scene.createDefaultSkybox(skybox, true, (field * 2));
 
   return scene;
 };
