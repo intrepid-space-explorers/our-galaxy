@@ -4,36 +4,37 @@ var data_window_open = false;
 var planet_window_open = false;
 var life_counter = 0;
 var intel_counter = 0;
-var star_array = [];
-// type, img_url, name, age, planets[], has_planets, scan_status
+var star_array = []; 
+
+// type, img_url, name, age, planets[], has_planets, scan_status 
 var star_types = [
-  0, 1, 1, 2, 2, 2, 3, 3, 4, 4, // 0 black hole
-  5, 5, 6, 6, 6, 6, 6, 6, 6, 6, // 1 nuetron star
-  7, 7, 7, 7, 7, 7, 7, 7, 8, 8, // 2 white dwarf
-  8, 8, 8, 8, 8, 8, 9, 9, 9, 9, // 3 supernova i
-  9, 9, 9, 9, 9, 9, 9, 9, 9, 9, // 4 supernova ii
-  9, 9, 9, 9, 9, 9, 9, 10, 10, 10, // 5 red giant
+  0, 1, 1, 2, 2, 2, 3, 3, 4, 4,           // 0 black hole
+  5, 5, 6, 6, 6, 6, 6, 6, 6, 6,           // 1 nuetron star
+  7, 7, 7, 7, 7, 7, 7, 7, 8, 8,           // 2 white dwarf
+  8, 8, 8, 8, 8, 8, 9, 9, 9, 9,           // 3 supernova i
+  9, 9, 9, 9, 9, 9, 9, 9, 9, 9,           // 4 supernova ii
+  9, 9, 9, 9, 9, 9, 9, 10, 10, 10,        // 5 red giant
   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // 6 7 8 main i, ii, iii
   10, 10, 10, 10, 10, 10, 10, 10, 11, 11, // 9 10 11 red dwarf 1, 2, 3
   11, 11, 11, 11, 11, 11, 11, 11, 11, 11, // 12 blue giant
-  11, 11, 11, 11, 11, 11, 11, 11, 11, 12 // 13 dyson shpere
+  11, 11, 11, 11, 11, 11, 11, 11, 11, 12  // 13 dyson shpere
 ];
 var planet_types = [
-  0, 0, 0, 0, 0, 1, 1, 1, 1, 1, // 0 hot giant
-  1, 1, 1, 1, 1, 2, 2, 2, 2, 2, // 1 hot rocky
-  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 2 rocky dwarf
-  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, // 3 4 5 sub, terra, super
-  5, 5, 5, 5, 5, 5, 5, 5, 5, 5, // 6 water world
-  6, 6, 7, 7, 7, 8, 8, 8, 8, 8, // 7 gas giant moon
-  8, 8, 8, 8, 8, 8, 8, 8, 8, 8, // 8 gas giant
-  8, 8, 8, 8, 8, 9, 9, 9, 10, 10, // 9 super jovian
+  0, 0, 0, 0, 0, 1, 1, 1, 1, 1,           // 0 hot giant
+  1, 1, 1, 1, 1, 2, 2, 2, 2, 2,           // 1 hot rocky
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3,           // 2 rocky dwarf
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4,           // 3 4 5 sub, terra, super
+  5, 5, 5, 5, 5, 5, 5, 5, 5, 5,           // 6 water world
+  6, 6, 7, 7, 7, 8, 8, 8, 8, 8,           // 7 gas giant moon
+  8, 8, 8, 8, 8, 8, 8, 8, 8, 8,           // 8 gas giant
+  8, 8, 8, 8, 8, 9, 9, 9, 10, 10,         // 9 super jovian
   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // 10 ice giant
   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // 11 ice dwarf
-  10, 10, 10, 10, 10, 10, 10, 10, 11, 11 // 12 dyson shpere
+  10, 10, 10, 10, 10, 10, 10, 10, 11, 11  // 12 dyson shpere
 ];
 var star_data_image_url = ['../assets/star_pictures/s0_blackhole.png', '../assets/star_pictures/s1_neutron.png', '../assets/star_pictures/s2_white_dwarf.png', '../assets/star_pictures/s3_supernova_i.png', '../assets/star_pictures/s4_supernova_ii.png', '../assets/star_pictures/s5_red_giant.png', '../assets/star_pictures/s6_main_i.png', '../assets/star_pictures/s7_main_ii.png', '../assets/star_pictures/s8_main_iii.png', '../assets/star_pictures/s9_red_dwarf_1.png', '../assets/star_pictures/s10_red_dwarf_2.png', '../assets/star_pictures/s11_red_dwarf_3.png', '../assets/star_pictures/s12_blue_giant.png', '../assets/star_pictures/s13_dyson_sphere.png'];
 var star_data_name = ['Black Hole', 'Neutron Star', 'White Dwarf', 'Supernova-I', 'Supernova-II', 'Red Giant', 'Main Sequence I', 'Main Sequence II', 'Main Sequence III', 'Red Dwarf I', 'Red Dwarf II', 'Red Dwarf III', 'Blue Giant', 'Dyson Sphere'];
-var star_data_minage = [.1, 5, 7, .1, .1, 6, 2, 3, 4, 2, 2, 2, .2, 4];
+var star_data_minage = [.1,  5,  7, .1, .1, 6, 2, 3, 4, 2,  2,  2, .2,  4];
 var star_data_maxage = [13, 12, 13, .1, .1, 7, 6, 7, 8, 8, 10, 12, .5, 12];
 var star_data_chance_planets = [0, .01, .05, 0, 0, .4, .9, .9, .9, .9, .9, .9, .05, 1];
 var planet_data_image_url = ['../assets/star_pictures/p0_hot_giant.jpg', '../assets/star_pictures/p1_hot_rocky.jpg', '../assets/star_pictures/p2_rocky_dwarf.jpg', '../assets/star_pictures/p3_sub_terra.jpg', '../assets/star_pictures/p4_terra.jpg', '../assets/star_pictures/p5_super_terra.jpg', '../assets/star_pictures/p6_water_world.jpg', '../assets/star_pictures/p7_gas_giant_moon.jpg', '../assets/star_pictures/p8_gas_giant.jpg', '../assets/star_pictures/p9_super_jovian.jpg', '../assets/star_pictures/p10_ice_giant.jpg', '../assets/star_pictures/p11_ice_dwarf.jpg', '../assets/star_pictures/p12_dyson_sphere.jpg'];
@@ -187,7 +188,7 @@ Build_star.prototype.scan_for_planets = function() {
 Build_star.prototype.populate_planet_data = function() {
   for (var i = 0; i < this.planets.length; i++) {
     this.planets[i].populate_with_data();
-    //    console.log('planet');
+//    console.log('planet');
   }
 };
 
@@ -279,10 +280,10 @@ for (var i = 0; i < num_stars; i++) {
         // conditionals to put hot planets by star and cold planets away from it
         if (
           ((j === 0 && num_planets > 1) && p_type > 9) ||
-                    (((j === 1 && num_planets > 2) && p_type < 2) && star_array[i].planets[0].type > 1) ||
-                    ((j === num_planets || j === (num_planets - 1)) && (p_type === 0 || p_type === 1)) ||
-                    (j > 2 && (p_type === 0 || p_type === 1)) ||
-                    ((j < num_planets - 3) && p_type > 9)
+          (((j === 1 && num_planets > 2) && p_type < 2) && star_array[i].planets[0].type > 1) || 
+          ((j === num_planets || j === (num_planets - 1)) && (p_type === 0 || p_type === 1)) ||
+          (j > 2 && (p_type === 0 || p_type === 1)) ||
+          ((j < num_planets - 3) && p_type > 9)
         ) {
           k = 0;
         } else {
