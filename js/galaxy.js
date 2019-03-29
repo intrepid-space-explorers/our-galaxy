@@ -381,18 +381,20 @@ var createScene = function() {
 };
 
 
-var scene = createScene(); //Call the createScene function
+var scene = createScene();
 
 engine.runRenderLoop(function() {
   scene.render();
 });
 
-window.addEventListener('click', function(event) {
-  // We try to pick an object
-  console.log(event);
+window.addEventListener('click', function() {
   var pickResult = scene.pick(scene.pointerX, scene.pointerY);
-  var star_clicked = star_array[pickResult.pickedMesh.id];
-  star_clicked.if_clicked(event);
+  if (pickResult.pickedMesh) {
+    console.log(event);
+    console.log(pickResult);
+    var star_clicked = star_array[pickResult.pickedMesh.id];
+    star_clicked.if_clicked(event);
+  }
 }),
 
 window.addEventListener('resize', function() {

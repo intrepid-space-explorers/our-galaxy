@@ -61,10 +61,13 @@ button {
 }
 
 #planet_div {
-    width: 55%;
+    width: 50%;
+    min-height: 350px;
     float: right;
+    right: 2px;
     text-align: center;
     padding-right: 2px;
+    z-index: 4;
 }
 
 p {
@@ -74,6 +77,7 @@ p {
 }
 
 .planet {
+    position: relative;
     width: 32%;
     margin: auto;
 }
