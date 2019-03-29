@@ -183,9 +183,6 @@ Build_star.prototype.scan_for_planets = function() {
     if (this.has_planets === true) {
       this.populate_planet_data();
     } else {
-      var none = document.createElement('p');
-      // none.textContent = 'No planets found';
-      // new_planets_div.appendChild(none);
       this.scan_status = 'No planets found';
       scanned.textContent = `Scan Status: ${this.scan_status}`;
     }
@@ -201,9 +198,16 @@ Build_star.prototype.populate_planet_data = function() {
 };
 
 Build_star.prototype.scan_for_life = function() {
+  var scanned = document.getElementById('scan_status');
+  var life = false;
   for (var i = 0; i < this.planets.length; i++) {
     console.log(i);
     this.planets[i].check_for_life(this, i);
+    if (this.planets[i].life) { life = true; }
+        if (!life) {
+      this.scan_status = 'No life found';
+      scanned.textContent = `Scan Status: ${this.scan_status}`;
+    }
   }
 };
 
@@ -241,8 +245,6 @@ Build_planet.prototype.check_for_life = function(star, planet_index) {
       life_counter += 1;
       star.scan_status = 'Success!  Life found!';
       planet.setAttribute('class', 'life');
-    } else {
-      star.scan_status = 'No Life Found';
     }
     if (this.intel === 1) {
       intel_counter += 1;
