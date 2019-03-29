@@ -5,8 +5,13 @@
     overflow: hidden;
 }
 
+canvas {
+    position: absolute;
+}
+
 div {
-    position: relative;
+    z-index: 3;
+    position: absolute;
     background-color: grey;
     width: 50%;
     background-color: grey;
@@ -20,6 +25,7 @@ div:not(#status_bar) {
 
 #data_div {
     min-height: 350px;
+    padding-bottom: 5px;
 }
 
 div>div {
@@ -56,10 +62,13 @@ button {
 }
 
 #planet_div {
-    width: 55%;
+    width: 50%;
+    min-height: 350px;
     float: right;
+    right: 2px;
     text-align: center;
     padding-right: 2px;
+    z-index: 4;
 }
 
 p {
@@ -69,6 +78,7 @@ p {
 }
 
 .planet {
+    position: relative;
     width: 32%;
     margin: auto;
 }
@@ -85,12 +95,16 @@ p {
 }
 
 #status_bar {
+    z-index: 2;
     background-color: grey;
     border: 3px ridge rgb(25, 93, 156);
     border-radius: 10px;
     width: 50%;
     height: 80px;
     font-size: 2em;
+    position: absolute;
+    bottom: 3px;
+    left: 25%;
 }
 
 #status_bar>ul {
@@ -105,6 +119,7 @@ p {
 }
 
 #status_bar button {
+    z-index: 2;
     float: right;
     margin-top: 23px;
     margin-right: 20px;
