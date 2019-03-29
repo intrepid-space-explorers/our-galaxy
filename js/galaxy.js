@@ -5,6 +5,7 @@ var planet_window_open = false;
 var life_counter = 0;
 var intel_counter = 0;
 var star_array = []; 
+
 // type, img_url, name, age, planets[], has_planets, scan_status 
 var star_types = [
   0, 1, 1, 2, 2, 2, 3, 3, 4, 4,           // 0 black hole
