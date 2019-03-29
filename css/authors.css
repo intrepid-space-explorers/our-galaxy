@@ -57,13 +57,14 @@ body{
     text-overflow: clip;
     clear: both;
     overflow-wrap: normal;
-    font-size: 0.5cm;
+    font-size: 20px;
+    font-family: 'Slabo 27px', serif;
   }
 
   ul{
     padding: 2cm;
-    
-    
+
+
   }
 
 #footer{
@@ -75,20 +76,30 @@ body{
 .index_button{
   cursor: pointer;
   width: 100px;
-  height: 30px;
+  height: 50px;
   margin-bottom: 10%;;
   border-radius: 10px;
   float: right;
+  margin-top: 10%;
+  margin-right: 3%;
   display: block;
-  color: gray;
 }
-
 
 
 div.title{
-line-height: 3.2;
-font-size: 38px;
-width: 716px;
-margin-left: 40%;
+  font-size: 60px;
+  font-weight: bold;
+  margin-left: 33%;
+  font-family: 'Slabo 27px', serif;
+  color: gold;
 }
-    
+
+.author_image{
+  margin-left: 30%;
+}
+.bold{
+  font-weight: bold;
+}
+.author_box{
+  margin-bottom: 4%;
+}
