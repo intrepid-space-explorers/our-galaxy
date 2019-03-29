@@ -5,7 +5,12 @@
     overflow: hidden;
 }
 
+canvas {
+    position: absolute;
+}
+
 div {
+    z-index: 2;
     position: relative;
     background-color: grey;
     width: 50%;

@@ -1,5 +1,6 @@
 'use strict';
-
+//diameter of star field
+var field = window.innerWidth * 4;
 var data_window_open = false;
 var planet_window_open = false;
 var life_counter = 0;
@@ -65,46 +66,48 @@ function Build_star() {
   star_array.push(this);
 }
 
-Build_star.prototype.if_clicked = function() {
-  var click_difference = dist(this.x, this.y, mouseX, mouseY);
+Build_star.prototype.if_clicked = function(mouseX, mouseY) {
   if (!data_window_open) {
-    if (click_difference <= (this.z / 2)) {
-      console.log(this);
-      var new_div = createDiv('');
-      new_div.attribute('id', 'data_div');
-      var new_y = mouseY;
-      var new_x = mouseX;
-      this.populate_with_data();
 
-      if (mouseY > (window.innerHeight / 2)) {
-        new_y = mouseY - (new_div.size().height);
+    var body = document.getElementsByTagName('body')[0];
+    var new_div = document.createElement('div');
+    new_div.setAttribute('id', 'data_div');
+    var new_y = mouseY;
+    var new_x = mouseX;
+
+    // if (mouseY > (window.innerHeight / 2)) {
+    //   new_y = mouseY - (new_div.height);
+    // }
+    // if (mouseX > (window.innerWidth / 2)) {
+    //   new_x = mouseX - (new_div.width);
+    // }
+    new_div.style.position = 'absolute';
+    new_div.style.left = new_x;
+    new_div.style.top = new_y;
+    body.appendChild(new_div);
+    this.populate_with_data();
+
+    data_window_open = true;
+
+    var ctx = this;
+    var handle_scan = function(event) {
+      if (event.target.id === 'scan') {
+        ctx.scan_for_planets();
       }
-      if (mouseX > (window.innerWidth / 2)) {
-        new_x = mouseX - (new_div.size().width);
+      if (event.target.id === 'life_scan') {
+        ctx.scan_for_life();
       }
-      new_div.position(new_x, new_y);
+    };
 
-      data_window_open = true;
+    var scan = document.getElementById('scan');
+    scan.addEventListener('click', handle_scan);
 
-      var ctx = this;
-      var handle_scan = function(event) {
-        if (event.target.id === 'scan') {
-          ctx.scan_for_planets();
-        }
-        if (event.target.id === 'life_scan') {
-          ctx.scan_for_life();
-        }
-      };
+    var life_scan = document.getElementById('life_scan');
+    life_scan.addEventListener('click', handle_scan);
 
-      var scan = document.getElementById('scan');
-      scan.addEventListener('click', handle_scan);
+    var close = document.getElementById('close_button');
+    close.addEventListener('click', close_div);
 
-      var life_scan = document.getElementById('life_scan');
-      life_scan.addEventListener('click', handle_scan);
-
-      var close = document.getElementById('close_button');
-      close.addEventListener('click', close_div);
-    }
   }
 
   function close_div() {
@@ -256,9 +259,9 @@ for (var i = 0; i < num_stars; i++) {
   star_array[i].type = s_type;
   star_array[i].name = star_data_name[s_type];
   star_array[i].age = ((star_data_maxage[s_type] - star_data_minage[s_type]) * (Math.random()) + star_data_minage[s_type]).toFixed(3);
-  star_array[i].x = randomized_coordinates()[0];
-  star_array[i].y = randomized_coordinates()[1];
-  star_array[i].z = randomized_coordinates()[2];
+  star_array[i].x = random_coordinate();
+  star_array[i].y = random_coordinate();
+  star_array[i].z = random_coordinate();
   var chance = Math.random();
   // set random chance for if star has planets
   if (chance < star_data_chance_planets[s_type]) {
@@ -312,54 +315,57 @@ for (var i = 0; i < num_stars; i++) {
   }
 }
 
-// ================================================
-// p5 Canvas area
-// ================================================
 
-var img;
-var background_img;
-var images = [];
+//===============================
+// Rendering
+//===============================
 
-function preload() {
-  for (var i = 0; i < star_data_image_url.length; i++) {
-    img = loadImage(star_data_image_url[i]);
-    images.push(img);
-  }
-  background_img = loadImage('../assets/star_pictures/Milky_Way-view3.jpg');
-}
+var canvas = document.getElementById('renderCanvas');
+canvas.setAttribute('height', window.innerHeight);
+canvas.setAttribute('width', window.innerWidth);
 
-function setup() {
-  var cnv = createCanvas(windowWidth, windowHeight);
-  background(0);
-  background(background_img, 0);
+var engine = new BABYLON.Engine(canvas, true);
 
-  var status_bar = createDiv('<a href=\'../index.html\'><button>Home</button></a>');
-  status_bar.attribute('id', 'status_bar');
-  var pos_x = window.innerWidth / 4;
-  var pos_y = window.innerHeight - status_bar.size().height;
-  status_bar.position(pos_x, pos_y);
+var createScene = function() {
+  var scene = new BABYLON.Scene(engine);
+  scene.clearColor = BABYLON.Color3.Black();
 
-  imageMode(CENTER);
-  noStroke();
+  var camera = new BABYLON.UniversalCamera('UniversalCamera', new BABYLON.Vector3(0, 0, -10), scene);
+  camera.setTarget(BABYLON.Vector3.Zero());
+  camera.attachControl(canvas, true);
+
+  var texture = new BABYLON.StandardMaterial('texture', scene);
+  texture.emissiveTexture = new BABYLON.Texture('../assets/star_pictures/sun_texture_map.jpg', scene);
 
   for (var i in star_array) {
-    fill(0, 0, 0, 1);
-    image(images[star_array[i].type], star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
-    ellipse(star_array[i].x, star_array[i].y, star_array[i].z, star_array[i].z);
+    var star = new BABYLON.MeshBuilder.CreateSphere(i, { diameter: 10 }, scene);
+    star.material = texture;
+    star.position = new BABYLON.Vector3(star_array[i].x, star_array[i].y, star_array[i].z);
   }
-}
 
-function mousePressed() {
-  for (var i in star_array) {
-    star_array[i].if_clicked();
-  }
-}
+  return scene;
+};
 
-function randomized_coordinates() {
-  var random_x = Math.floor(((Math.random() * (window.innerWidth - 200)) + 100));
-  var random_y = Math.floor(((Math.random() * (window.innerHeight - 200)) + 100));
-  var random_psuedo_z = Math.floor(Math.random() * 22) + 17;
-  //change 22 and 17 to change star image sizes and depth of view
-  var coordinates = [random_x, random_y, random_psuedo_z];
-  return coordinates;
+
+var scene = createScene(); //Call the createScene function
+
+engine.runRenderLoop(function() {
+  scene.render();
+});
+
+window.addEventListener('click', function() {
+  // We try to pick an object
+  var pickResult = scene.pick(scene.pointerX, scene.pointerY);
+  var star_clicked = star_array[pickResult.pickedMesh.id];
+  star_clicked.if_clicked(scene.pointerX, scene.pointerY);
+}),
+
+window.addEventListener('resize', function() {
+  engine.resize();
+});
+
+function random_coordinate() {
+  var coordinate = Math.floor((Math.random() * field) - (field / 2));
+
+  return coordinate;
 }
