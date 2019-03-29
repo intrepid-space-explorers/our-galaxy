@@ -5,7 +5,7 @@
 // ================================================
 
 //diameter of star field
-var field = window.innerWidth * 4;
+var field = window.innerWidth * 2;
 
 //star objects to render
 var star_array = [];
@@ -373,11 +373,11 @@ var createScene = function() {
   camera.setTarget(BABYLON.Vector3.Zero());
   camera.attachControl(canvas, true);
 
-  var texture = new BABYLON.StandardMaterial('texture', scene);
-  texture.emissiveTexture = new BABYLON.Texture('../assets/star_pictures/sun_texture_map.jpg', scene);
 
   for (var i in star_array) {
     var star = new BABYLON.MeshBuilder.CreateSphere(i, { diameter: 10 }, scene);
+    var texture = new BABYLON.StandardMaterial('texture', scene);
+    texture.emissiveTexture = new BABYLON.Texture(star_array[i].image_url, scene);
     star.material = texture;
     star.position = new BABYLON.Vector3(star_array[i].x, star_array[i].y, star_array[i].z);
   }
