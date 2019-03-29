@@ -1,11 +1,31 @@
 'use strict';
+
+// ================================================
+// Global Variables
+// ================================================
+
 //diameter of star field
 var field = window.innerWidth * 4;
+
+//star objects to render
+var star_array = [];
+
+//pop-up status
 var data_window_open = false;
 var planet_window_open = false;
+
+//track number of planets where life/inteligent life generated
+//currently not used
+var total_life_count = 0;
+var total_intel_count = 0;
+
+
+//how many planets with life/intelligent life have been found
 var life_counter = 0;
 var intel_counter = 0;
-var star_array = [];
+
+
+//control star type distribution
 var star_types = [
   0, 1, 1, 2, 2, 2, 3, 3, 4, 4, // 0 black hole
   5, 5, 6, 6, 6, 6, 6, 6, 6, 6, // 1 nuetron star
@@ -18,6 +38,8 @@ var star_types = [
   11, 11, 11, 11, 11, 11, 11, 11, 11, 11, // 12 blue giant
   11, 11, 11, 11, 11, 11, 11, 11, 12, 12 // 13 dyson shpere
 ];
+
+//control planet type distribution
 var planet_types = [
   0, 0, 0, 0, 0, 1, 1, 1, 1, 1, // 0 hot giant
   1, 1, 1, 1, 1, 2, 2, 2, 2, 2, // 1 hot rocky
@@ -31,18 +53,25 @@ var planet_types = [
   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // 11 ice dwarf
   10, 10, 10, 10, 10, 10, 10, 10, 11, 11 // 12 dyson shpere
 ];
+
+//TODO: Refactor data arrays into objects without breaking the rest of the code
+//star data arrays
 var star_data_image_url = ['../assets/star_pictures/s0_blackhole.png', '../assets/star_pictures/s1_neutron.png', '../assets/star_pictures/s2_white_dwarf.png', '../assets/star_pictures/s3_supernova_i.png', '../assets/star_pictures/s4_supernova_ii.png', '../assets/star_pictures/s5_red_giant.png', '../assets/star_pictures/s6_main_i.png', '../assets/star_pictures/s7_main_ii.png', '../assets/star_pictures/s8_main_iii.png', '../assets/star_pictures/s9_red_dwarf_1.png', '../assets/star_pictures/s10_red_dwarf_2.png', '../assets/star_pictures/s11_red_dwarf_3.png', '../assets/star_pictures/s12_blue_giant.png', '../assets/star_pictures/s13_dyson_sphere.png'];
 var star_data_name = ['Black Hole', 'Neutron Star', 'White Dwarf', 'Supernova-I', 'Supernova-II', 'Red Giant', 'Main Sequence I', 'Main Sequence II', 'Main Sequence III', 'Red Dwarf I', 'Red Dwarf II', 'Red Dwarf III', 'Blue Giant', 'Dyson Sphere'];
 var star_data_minage = [.1, 5, 7, .1, .1, .1, 2, 3, 4, 2, 2, 2, .1, 4];
 var star_data_maxage = [13, 12, 13, .1, .1, .1, 6, 7, 8, 8, 10, 12, .5, 12];
 var star_data_chance_planets = [0, .01, .05, 0, 0, .4, .9, .9, .9, .9, .9, .9, .05, 1];
+
+//planet data arrays
 var planet_data_image_url = ['../assets/star_pictures/p0_hot_giant.jpg', '../assets/star_pictures/p1_hot_rocky.jpg', '../assets/star_pictures/p2_rocky_dwarf.jpg', '../assets/star_pictures/p3_sub_terra.jpg', '../assets/star_pictures/p4_terra.jpg', '../assets/star_pictures/p5_super_terra.jpg', '../assets/star_pictures/p6_water_world.jpg', '../assets/star_pictures/p7_gas_giant_moon.jpg', '../assets/star_pictures/p8_gas_giant.jpg', '../assets/star_pictures/p9_super_jovian.jpg', '../assets/star_pictures/p10_ice_giant.jpg', '../assets/star_pictures/p11_ice_dwarf.jpg', '../assets/star_pictures/p12_dyson_sphere.jpg'];
 var planet_data_name = ['Hot Giant', 'Hot Rocky', 'Rocky Dwarf', 'Sub Terra', 'Terra', 'Super Terra', 'Water World', 'Jovian Moon', 'Gas Giant', 'Super Jovian', 'Ice Giant', 'Ice Dwarf', 'Dyson Sphere'];
 var planet_data_chance_life = [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1];
-var total_life_count = 0;
-var total_intel_count = 0;
-var mark_life_count = 0;
-var mark_intel_count = 0;
+
+// ================================================
+//DOM references
+// ================================================
+
+var body = document.getElementsByTagName('body')[0];
 
 // ================================================
 // get data from local storage
@@ -56,7 +85,7 @@ var intel_drake = (JSON.parse(stringy_percent_of_intelligent_life) || 0.25);
 var num_stars = (JSON.parse(stringy_number_of_stars) || 1000);
 
 // ================================================
-// Solar System Constructor
+// Solar System Constructors and Methods
 // ================================================
 
 function Build_star() {
@@ -66,28 +95,10 @@ function Build_star() {
   star_array.push(this);
 }
 
-Build_star.prototype.if_clicked = function(mouseX, mouseY) {
+Build_star.prototype.if_clicked = function(event) {
   if (!data_window_open) {
-
-    var body = document.getElementsByTagName('body')[0];
-    var new_div = document.createElement('div');
-    new_div.setAttribute('id', 'data_div');
-    var new_y = mouseY;
-    var new_x = mouseX;
-
-    // if (mouseY > (window.innerHeight / 2)) {
-    //   new_y = mouseY - (new_div.height);
-    // }
-    // if (mouseX > (window.innerWidth / 2)) {
-    //   new_x = mouseX - (new_div.width);
-    // }
-    new_div.style.position = 'absolute';
-    new_div.style.left = new_x;
-    new_div.style.top = new_y;
-    body.appendChild(new_div);
+    generate_data_div(event);
     this.populate_with_data();
-
-    data_window_open = true;
 
     var ctx = this;
     var handle_scan = function(event) {
@@ -107,14 +118,6 @@ Build_star.prototype.if_clicked = function(mouseX, mouseY) {
 
     var close = document.getElementById('close_button');
     close.addEventListener('click', close_div);
-
-  }
-
-  function close_div() {
-    var container = document.getElementById('data_div');
-    container.remove();
-    data_window_open = false;
-    planet_window_open = false;
   }
 };
 
@@ -129,7 +132,6 @@ Build_star.prototype.populate_with_data = function() {
   var data_list = document.createElement('ul');
 
   var name = document.createElement('li');
-
   name.textContent = `Type: ${this.name}`;
   data_list.appendChild(name);
 
@@ -244,6 +246,38 @@ Build_planet.prototype.check_for_life = function() {
 };
 
 // ================================================
+// Stand-alone Functions
+// ================================================
+
+
+function generate_data_div(event) {
+  var new_div = document.createElement('div');
+  new_div.setAttribute('id', 'data_div');
+  var pos_x = event.x;
+  var pos_y = event.y;
+
+  if (event.y > (window.innerHeight / 2)) {
+    pos_y = event.y - (new_div.height);
+  }
+  if (event.x > (window.innerWidth / 2)) {
+    pos_x = event.x - (new_div.width);
+  }
+  new_div.style.position = 'absolute';
+  new_div.style.left = `${pos_x}px`;
+  new_div.style.top = `${pos_y}px`;
+
+  body.appendChild(new_div);
+  data_window_open = true;
+}
+
+function close_div() {
+  var container = document.getElementById('data_div');
+  container.remove();
+  data_window_open = false;
+  planet_window_open = false;
+}
+
+// ================================================
 // populate star_Array objects
 // ================================================
 
@@ -353,11 +387,12 @@ engine.runRenderLoop(function() {
   scene.render();
 });
 
-window.addEventListener('click', function() {
+window.addEventListener('click', function(event) {
   // We try to pick an object
+  console.log(event);
   var pickResult = scene.pick(scene.pointerX, scene.pointerY);
   var star_clicked = star_array[pickResult.pickedMesh.id];
-  star_clicked.if_clicked(scene.pointerX, scene.pointerY);
+  star_clicked.if_clicked(event);
 }),
 
 window.addEventListener('resize', function() {
