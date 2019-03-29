@@ -237,7 +237,6 @@ Build_planet.prototype.check_for_life = function(star, planet_index) {
   var scanned = document.getElementById('scan_status');
   var planet = document.getElementById(`planet_${planet_index}`);
   console.log(star.scanned_for_planets);
-  if (star.scanned_for_planets) {
     if (this.life === 1) {
       life_counter += 1;
       star.scan_status = 'Success!  Life found!';
@@ -253,7 +252,6 @@ Build_planet.prototype.check_for_life = function(star, planet_index) {
     scanned.textContent = `Scan Status: ${star.scan_status}`;
     var status_bar = document.getElementById('status_bar');
     status_bar.innerHTML = `<ul><li>Planets found that have life: ${life_counter}</li><li>Planets found that have intelligent life: ${intel_counter}</li></ul> <a href='../index.html'><button>Back</button></a>`;
-  }
   this.scanned = true;
 };
 
