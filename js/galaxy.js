@@ -4,37 +4,37 @@ var data_window_open = false;
 var planet_window_open = false;
 var life_counter = 0;
 var intel_counter = 0;
-var star_array = []; 
+var star_array = [];
 
-// type, img_url, name, age, planets[], has_planets, scan_status 
+// type, img_url, name, age, planets[], has_planets, scan_status
 var star_types = [
-  0, 1, 1, 2, 2, 2, 3, 3, 4, 4,           // 0 black hole
-  5, 5, 6, 6, 6, 6, 6, 6, 6, 6,           // 1 nuetron star
-  7, 7, 7, 7, 7, 7, 7, 7, 8, 8,           // 2 white dwarf
-  8, 8, 8, 8, 8, 8, 9, 9, 9, 9,           // 3 supernova i
-  9, 9, 9, 9, 9, 9, 9, 9, 9, 9,           // 4 supernova ii
-  9, 9, 9, 9, 9, 9, 9, 10, 10, 10,        // 5 red giant
+  0, 1, 1, 2, 2, 2, 3, 3, 4, 4, // 0 black hole
+  5, 5, 6, 6, 6, 6, 6, 6, 6, 6, // 1 nuetron star
+  7, 7, 7, 7, 7, 7, 7, 7, 8, 8, // 2 white dwarf
+  8, 8, 8, 8, 8, 8, 9, 9, 9, 9, // 3 supernova i
+  9, 9, 9, 9, 9, 9, 9, 9, 9, 9, // 4 supernova ii
+  9, 9, 9, 9, 9, 9, 9, 10, 10, 10, // 5 red giant
   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // 6 7 8 main i, ii, iii
   10, 10, 10, 10, 10, 10, 10, 10, 11, 11, // 9 10 11 red dwarf 1, 2, 3
   11, 11, 11, 11, 11, 11, 11, 11, 11, 11, // 12 blue giant
-  11, 11, 11, 11, 11, 11, 11, 11, 11, 12  // 13 dyson shpere
+  11, 11, 11, 11, 11, 11, 11, 11, 11, 12 // 13 dyson shpere
 ];
 var planet_types = [
-  0, 0, 0, 0, 0, 1, 1, 1, 1, 1,           // 0 hot giant
-  1, 1, 1, 1, 1, 2, 2, 2, 2, 2,           // 1 hot rocky
-  3, 3, 3, 3, 3, 3, 3, 3, 3, 3,           // 2 rocky dwarf
-  4, 4, 4, 4, 4, 4, 4, 4, 4, 4,           // 3 4 5 sub, terra, super
-  5, 5, 5, 5, 5, 5, 5, 5, 5, 5,           // 6 water world
-  6, 6, 7, 7, 7, 8, 8, 8, 8, 8,           // 7 gas giant moon
-  8, 8, 8, 8, 8, 8, 8, 8, 8, 8,           // 8 gas giant
-  8, 8, 8, 8, 8, 9, 9, 9, 10, 10,         // 9 super jovian
+  0, 0, 0, 0, 0, 1, 1, 1, 1, 1, // 0 hot giant
+  1, 1, 1, 1, 1, 2, 2, 2, 2, 2, // 1 hot rocky
+  3, 3, 3, 3, 3, 3, 3, 3, 3, 3, // 2 rocky dwarf
+  4, 4, 4, 4, 4, 4, 4, 4, 4, 4, // 3 4 5 sub, terra, super
+  5, 5, 5, 5, 5, 5, 5, 5, 5, 5, // 6 water world
+  6, 6, 7, 7, 7, 8, 8, 8, 8, 8, // 7 gas giant moon
+  8, 8, 8, 8, 8, 8, 8, 8, 8, 8, // 8 gas giant
+  8, 8, 8, 8, 8, 9, 9, 9, 10, 10, // 9 super jovian
   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // 10 ice giant
   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, // 11 ice dwarf
-  10, 10, 10, 10, 10, 10, 10, 10, 11, 11  // 12 dyson shpere
+  10, 10, 10, 10, 10, 10, 10, 10, 11, 11 // 12 dyson shpere
 ];
 var star_data_image_url = ['../assets/star_pictures/s0_blackhole.png', '../assets/star_pictures/s1_neutron.png', '../assets/star_pictures/s2_white_dwarf.png', '../assets/star_pictures/s3_supernova_i.png', '../assets/star_pictures/s4_supernova_ii.png', '../assets/star_pictures/s5_red_giant.png', '../assets/star_pictures/s6_main_i.png', '../assets/star_pictures/s7_main_ii.png', '../assets/star_pictures/s8_main_iii.png', '../assets/star_pictures/s9_red_dwarf_1.png', '../assets/star_pictures/s10_red_dwarf_2.png', '../assets/star_pictures/s11_red_dwarf_3.png', '../assets/star_pictures/s12_blue_giant.png', '../assets/star_pictures/s13_dyson_sphere.png'];
 var star_data_name = ['Black Hole', 'Neutron Star', 'White Dwarf', 'Supernova-I', 'Supernova-II', 'Red Giant', 'Main Sequence I', 'Main Sequence II', 'Main Sequence III', 'Red Dwarf I', 'Red Dwarf II', 'Red Dwarf III', 'Blue Giant', 'Dyson Sphere'];
-var star_data_minage = [.1,  5,  7, .1, .1, 6, 2, 3, 4, 2,  2,  2, .2,  4];
+var star_data_minage = [.1, 5, 7, .1, .1, 6, 2, 3, 4, 2, 2, 2, .2, 4];
 var star_data_maxage = [13, 12, 13, .1, .1, 7, 6, 7, 8, 8, 10, 12, .5, 12];
 var star_data_chance_planets = [0, .01, .05, 0, 0, .4, .9, .9, .9, .9, .9, .9, .05, 1];
 var planet_data_image_url = ['../assets/star_pictures/p0_hot_giant.jpg', '../assets/star_pictures/p1_hot_rocky.jpg', '../assets/star_pictures/p2_rocky_dwarf.jpg', '../assets/star_pictures/p3_sub_terra.jpg', '../assets/star_pictures/p4_terra.jpg', '../assets/star_pictures/p5_super_terra.jpg', '../assets/star_pictures/p6_water_world.jpg', '../assets/star_pictures/p7_gas_giant_moon.jpg', '../assets/star_pictures/p8_gas_giant.jpg', '../assets/star_pictures/p9_super_jovian.jpg', '../assets/star_pictures/p10_ice_giant.jpg', '../assets/star_pictures/p11_ice_dwarf.jpg', '../assets/star_pictures/p12_dyson_sphere.jpg'];
@@ -63,6 +63,7 @@ var num_stars = (JSON.parse(stringy_number_of_stars) || 1000);
 function Build_star() {
   this.has_planets = false;
   this.scan_status = 'Not scanned';
+  this.scanned_for_planets = false;
   this.planets = [],
   star_array.push(this);
 }
@@ -94,7 +95,10 @@ Build_star.prototype.if_clicked = function() {
           ctx.scan_for_planets();
         }
         if (event.target.id === 'life_scan') {
-          ctx.scan_for_life();
+          if (ctx.scanned_for_planets) {
+            console.log('life scan');
+            ctx.scan_for_life();
+          }
         }
       };
 
@@ -151,6 +155,7 @@ Build_star.prototype.populate_with_data = function() {
   var life_scan = document.createElement('button');
   life_scan.setAttribute('id', 'life_scan');
   life_scan.textContent = 'Scan for Life';
+  life_scan.disabled = true;
   star_div.appendChild(life_scan);
 
   var close = document.createElement('button');
@@ -164,8 +169,11 @@ Build_star.prototype.populate_with_data = function() {
 Build_star.prototype.scan_for_planets = function() {
   var data_div = document.getElementById('data_div');
   var scanned = document.getElementById('scan_status');
+  var scan_button = document.getElementById('life_scan');
+  scan_button.disabled = false;
 
   this.scan_status = 'Scanned for Planets';
+  this.scanned_for_planets = true;
   scanned.textContent = `Scan Status: ${this.scan_status}`;
 
   if (!planet_window_open) {
@@ -182,39 +190,35 @@ Build_star.prototype.scan_for_planets = function() {
       scanned.textContent = `Scan Status: ${this.scan_status}`;
     }
   }
+
   planet_window_open = true;
 };
 
 Build_star.prototype.populate_planet_data = function() {
   for (var i = 0; i < this.planets.length; i++) {
-    this.planets[i].populate_with_data();
-//    console.log('planet');
+    this.planets[i].populate_with_data(i);
   }
 };
 
 Build_star.prototype.scan_for_life = function() {
   for (var i = 0; i < this.planets.length; i++) {
-    var scanned = document.getElementById('scan_status');
-    scanned.textContent = `Scan Status: ${this.scan_status}`;
-
-    this.scan_status = 'Scanned for Life';
-
-    this.planets[i].check_for_life();
+    console.log(i);
+    this.planets[i].check_for_life(this, i);
   }
 };
-
 
 function Build_planet(index) {
   this.scanned = false;
   star_array[index].planets.push(this);
 }
 
-Build_planet.prototype.populate_with_data = function() {
+Build_planet.prototype.populate_with_data = function(planet_index) {
   var planet_div = document.getElementById('planet_div');
   var new_planet = document.createElement('div');
   new_planet.setAttribute('class', 'planet');
 
   var image = document.createElement('img');
+  image.setAttribute('id', `planet_${planet_index}`);
   image.setAttribute('src', this.image_url);
   new_planet.appendChild(image);
 
@@ -229,17 +233,24 @@ Build_planet.prototype.populate_with_data = function() {
 
 };
 
-Build_planet.prototype.check_for_life = function() {
-  if (!this.scanned) {
-    if (this.life === 1) {
-      life_counter += 1;
-      this.scan_status = 'Success!  Life found!';
+Build_planet.prototype.check_for_life = function(star, planet_index) {
+  var scanned = document.getElementById('scan_status');
+  var planet = document.getElementById(`planet_${planet_index}`);
+  console.log(star.scanned_for_planets);
+  if (star.scanned_for_planets) {
+    if (!this.scanned) {
+      if (this.life === 1) {
+        life_counter += 1;
+        star.scan_status = 'Success!  Life found!';
+        planet.setAttribute('class', 'life');
+      }
+      if (this.intel === 1) {
+        intel_counter += 1;
+        star.scan_status = 'Success! INTELLIGENCE found!';
+        planet.setAttribute('class', 'intel');
+      }
     }
-    if (this.intel === 1) {
-      intel_counter += 1;
-      this.scan_status = 'Success! INTELLIGENCE found!';
-    }
-
+    scanned.textContent = `Scan Status: ${star.scan_status}`;
     var status_bar = document.getElementById('status_bar');
     status_bar.innerHTML = `<ul><li>Planets found that have life: ${life_counter}</li><li>Planets found that have intelligent life: ${intel_counter}</li></ul> <a href='../index.html'><button>Back</button></a>`;
   }
@@ -280,10 +291,10 @@ for (var i = 0; i < num_stars; i++) {
         // conditionals to put hot planets by star and cold planets away from it
         if (
           ((j === 0 && num_planets > 1) && p_type > 9) ||
-          (((j === 1 && num_planets > 2) && p_type < 2) && star_array[i].planets[0].type > 1) || 
-          ((j === num_planets || j === (num_planets - 1)) && (p_type === 0 || p_type === 1)) ||
-          (j > 2 && (p_type === 0 || p_type === 1)) ||
-          ((j < num_planets - 3) && p_type > 9)
+                    (((j === 1 && num_planets > 2) && p_type < 2) && star_array[i].planets[0].type > 1) ||
+                    ((j === num_planets || j === (num_planets - 1)) && (p_type === 0 || p_type === 1)) ||
+                    (j > 2 && (p_type === 0 || p_type === 1)) ||
+                    ((j < num_planets - 3) && p_type > 9)
         ) {
           k = 0;
         } else {
@@ -334,7 +345,7 @@ function preload() {
     img = loadImage(star_data_image_url[i]);
     images.push(img);
   }
-  background_img = loadImage('../assets/star_pictures/Milky_Way-view3.jpg');
+  background_img = loadImage('../assets/star_pictures/Milky_Way-view2.jpg');
 }
 
 function setup() {
@@ -342,7 +353,7 @@ function setup() {
   background(0);
   background(background_img, 0);
 
-  var status_bar = createDiv('<a href=\'../index.html\'><button>Home</button></a>');
+  var status_bar = createDiv('<ul><li>Planets found that have life: 0</li><li>Planets found that have intelligent life: 0</li></ul> <a href=\'.. /index.html \'><button>Back</button></a>');
   status_bar.attribute('id', 'status_bar');
   var pos_x = window.innerWidth / 4;
   var pos_y = window.innerHeight - status_bar.size().height;
@@ -365,8 +376,8 @@ function mousePressed() {
 }
 
 function randomized_coordinates() {
-  var random_x = Math.floor(((Math.random() * (window.innerWidth - 200)) + 100));
-  var random_y = Math.floor(((Math.random() * (window.innerHeight - 200)) + 100));
+  var random_x = Math.floor(((Math.random() * (window.innerWidth - 300)) + 150));
+  var random_y = Math.floor(((Math.random() * (window.innerHeight - 300)) + 150));
   var random_psuedo_z = Math.floor(Math.random() * 22) + 17;
   //change 22 and 17 to change star image sizes and depth of view
   var coordinates = [random_x, random_y, random_psuedo_z];
